@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "nbuE9bckb9JCTc6xvpbzclfyR3pujVy4OFP9UIJko1IZTXQ5N+OKDOmdEgUT2Bp/lAp0P+A4Vlf43nk4czFumA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\user\\source\\repos\\WebCrawl\\WebCrawl\\WebCrawl.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\ecocore\\7.0.0.13485\\ecocore.7.0.0.13485.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\htmlagilitypack\\1.11.37\\htmlagilitypack.1.11.37.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"EcoCore 7.0.0.13485\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \"net5.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "EcoCore",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}
