@@ -105,7 +105,7 @@ namespace WebCrawl
             try
             {
                 // saving sitemap.xml parsing result
-                if (sitemap_list.Count > 0) 
+                if (sitemap_list.Count > 0)
                 {
                     if (!Directory.Exists(Environment.CurrentDirectory + "\\Result"))
                         Directory.CreateDirectory(Environment.CurrentDirectory + "\\Result");
@@ -226,8 +226,9 @@ namespace WebCrawl
                     if (ref_.Contains("#") || ref_.Contains("@") || ref_.Contains("?") || ref_.Contains("javascript:")) continue;
                     if (ref_[0] == '/') ref_ = ref_.Remove(0, 1);
                     if (!ref_.Contains("http")) ref_ = base_url + ref_;
-
-                    if (!checked_list.ContainsKey(ref_)) 
+                    if (IsFile(ref_)) continue;
+                    if (ref_.Split(':').Length > 2) continue;
+                    if (!checked_list.ContainsKey(ref_))
                     {
                         if (ref_.StartsWith(base_url)) // does the ref belong to the site
                         {
@@ -247,6 +248,19 @@ namespace WebCrawl
             {
                 Console.WriteLine("\n Exception!\n" + e.Message + "\n");
             }
+        }
+
+        static bool IsFile(string url)
+        {
+            url = url.ToLower();
+            if (url.EndsWith(".doc") || url.EndsWith(".docx") || url.EndsWith(".pdf") || url.EndsWith(".xls")
+                || url.EndsWith(".xlsx") || url.EndsWith(".txt") || url.EndsWith(".png") || url.EndsWith(".jgp")
+                || url.EndsWith(".jpeg") || url.EndsWith(".webp") || url.EndsWith(".gif") || url.EndsWith(".xml")
+                || url.EndsWith(".aif") || url.EndsWith(".mp3") || url.EndsWith(".ogg") || url.EndsWith(".wav")
+                || url.EndsWith(".pkg") || url.EndsWith(".rar") || url.EndsWith(".zip") || url.EndsWith(".ico"))
+                return true;
+
+            return false;
         }
     }
 }
