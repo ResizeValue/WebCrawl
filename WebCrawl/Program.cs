@@ -40,7 +40,7 @@ namespace WebCrawl
                 {
                     ReadURL(url, checked_list);
                     Except(sitemap_list, checked_list);
-                    SaveResuts(sitemap_list, checked_list);
+                    Timing(checked_list, sitemap_list);
                 }
                 catch (Exception e)
                 {
@@ -100,54 +100,12 @@ namespace WebCrawl
             }
         }
 
-        static void SaveResuts(HashSet<string> sitemap_list, Dictionary<string, TimeSpan> checked_list)
-        {
-            try
-            {
-                // saving sitemap.xml parsing result
-                if (sitemap_list.Count > 0)
-                {
-                    if (!Directory.Exists(Environment.CurrentDirectory + "\\Result"))
-                        Directory.CreateDirectory(Environment.CurrentDirectory + "\\Result");
-                    var sitemap_res = new StreamWriter(Environment.CurrentDirectory + "\\Result\\sitemap_result.txt");
-                    int i = 0;
-                    foreach (var ref__ in sitemap_list)
-                    {
-                        sitemap_res.WriteLine(++i + ". " + ref__);
-                    }
-                    sitemap_res.Close();
-                    Console.WriteLine("\n\nSITEMAP.XML parsing result has been saved in sitemap_result.txt");
-                }
-
-                // saving crawling result
-                if (checked_list.Count > 0)
-                {
-                    var parse_res = new StreamWriter(Environment.CurrentDirectory + "\\Result\\parse_result.txt");
-                    int index = 0;
-                    foreach (var item in checked_list.OrderBy(key => key.Value)) // order by response time and write to file
-                    {
-                        parse_res.WriteLine(++index + ". " + item.Key + " | " + item.Value.TotalMilliseconds.ToString("0") + " ms");
-                    }
-                    // short info
-                    parse_res.WriteLine("\nUrls found after crawling a website: " + checked_list.Count);
-                    parse_res.WriteLine("\nUrls found in sitemap: " + sitemap_list.Count);
-                    parse_res.Close();
-                    Console.WriteLine("\n\nCrawling result has been saved in ParseResult.txt");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
+        
         static void Except(HashSet<string> sitemap_list, Dictionary<string, TimeSpan> checked_list)
         {
             if (sitemap_list.Count < 1 && checked_list.Count < 1) return;
             try
             {
-                if (!Directory.Exists(Environment.CurrentDirectory + "\\Result"))
-                    Directory.CreateDirectory(Environment.CurrentDirectory + "\\Result");
                 HashSet<string> except = new HashSet<string>(checked_list.Keys); // using HashSet for ExceptWith method
                 except.ExceptWith(sitemap_list);
                 Console.WriteLine("\n\nUrls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml: \n\n");
@@ -155,22 +113,17 @@ namespace WebCrawl
                 foreach (var item in except)
                 {
                     Console.WriteLine(item);
-                    writer.WriteLine(item);
                 }
-                writer.Close();
                 Console.WriteLine("\nResult has been saved in Crawling except Sitemap.txt");
 
 
-                writer = new StreamWriter(Environment.CurrentDirectory + "\\Result\\Sitemap except Crawling.txt");
                 except = new HashSet<string>(sitemap_list);
                 except.ExceptWith(checked_list.Keys);
                 Console.WriteLine("\n\nUrls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:\n\n");
                 foreach (var item in except)
                 {
                     Console.WriteLine(item);
-                    writer.WriteLine(item);
                 }
-                writer.Close();
                 Console.WriteLine("\nResult has been saved in Sitemap except Crawling.txt");
             }
             catch (Exception e)
@@ -188,11 +141,6 @@ namespace WebCrawl
             {
                 Console.WriteLine("None.");
                 return;
-            }
-            int i = 0;
-            foreach (var item in checked_list)
-            {
-                Console.WriteLine(++i + ". " + item.Key + " | " + item.Value.TotalMilliseconds.ToString("0") + "ms");
             }
         }
 
@@ -248,6 +196,18 @@ namespace WebCrawl
             {
                 Console.WriteLine("\n Exception!\n" + e.Message + "\n");
             }
+        }
+
+        static void Timing(Dictionary<string, TimeSpan> checked_list, HashSet<string> sitemap)
+        {
+            Console.WriteLine("Timing");
+            int i = 0;
+            foreach (var item in checked_list)
+            {
+                Console.WriteLine(++i + ". " + item.Key + " | " + item.Value.TotalMilliseconds.ToString("0") + "ms");
+            }
+            Console.WriteLine("\nUrls(html documents) found after crawling a website: " + checked_list.Count);
+            Console.WriteLine("Urls found in sitemap:: " + sitemap.Count);
         }
 
         static bool IsFile(string url)
