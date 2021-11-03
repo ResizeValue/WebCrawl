@@ -1,0 +1,10 @@
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\bin\Debug\netcoreapp3.1\WebCrawl.deps.json
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\bin\Debug\netcoreapp3.1\WebCrawl.dll
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\bin\Debug\netcoreapp3.1\WebCrawl.pdb
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.csproj.AssemblyReference.cache
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.AssemblyInfoInputs.cache
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.AssemblyInfo.cs
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.csproj.CoreCompileInputs.cache
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.dll
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawler\obj\Debug\netcoreapp3.1\WebCrawl.pdb

@@ -1,0 +1,106 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "WebCrawl.ConsoleApplication/1.0.0": {
+        "dependencies": {
+          "EcoCore": "7.0.0.13485",
+          "HtmlAgilityPack": "1.11.37",
+          "Microsoft.AspNetCore.Html.Abstractions": "2.2.0",
+          "WebCrawl": "1.0.0"
+        },
+        "runtime": {
+          "WebCrawl.ConsoleApplication.dll": {}
+        }
+      },
+      "EcoCore/7.0.0.13485": {
+        "runtime": {
+          "lib/net40/Eco.Handles.dll": {
+            "assemblyVersion": "7.0.0.13485",
+            "fileVersion": "7.0.0.13485"
+          },
+          "lib/net40/Eco.Interfaces.dll": {
+            "assemblyVersion": "7.0.0.13485",
+            "fileVersion": "7.0.0.13485"
+          },
+          "lib/net40/Eco.LinqExtender.dll": {
+            "assemblyVersion": "7.0.0.13485",
+            "fileVersion": "7.0.0.13485"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.11.37": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.37.0",
+            "fileVersion": "1.11.37.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18316"
+          }
+        }
+      },
+      "System.Text.Encodings.Web/4.5.0": {},
+      "WebCrawl/1.0.0": {
+        "dependencies": {
+          "HtmlAgilityPack": "1.11.37"
+        },
+        "runtime": {
+          "WebCrawl.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WebCrawl.ConsoleApplication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EcoCore/7.0.0.13485": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qWzoWYARe8tsSwigRkKzGhf3E4j3ysTn7nXDauJwadxamIlTq25lUKoy6q2R0kS5MyOhoGoobX3Krz9t2tQsIw==",
+      "path": "ecocore/7.0.0.13485",
+      "hashPath": "ecocore.7.0.0.13485.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.11.37": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HioktZJuMHVW7QTwVayHDoBL8dPL68vGRLFdQXYNuSJkVfhxn6xihcocUgbR+B1Lm/YesigUvWrdH0JY+PZ+0g==",
+      "path": "htmlagilitypack/1.11.37",
+      "hashPath": "htmlagilitypack.1.11.37.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y4rs5aMEXY8G7wJo5S3EEt6ltqyOTr/qOeZzfn+hw/fuQj5GppGckMY5psGLETo1U9hcT5MmAhaT5xtusM1b5g==",
+      "path": "microsoft.aspnetcore.html.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512"
+    },
+    "System.Text.Encodings.Web/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
+      "path": "system.text.encodings.web/4.5.0",
+      "hashPath": "system.text.encodings.web.4.5.0.nupkg.sha512"
+    },
+    "WebCrawl/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
