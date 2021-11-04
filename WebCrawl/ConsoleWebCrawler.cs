@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.Linq;
 
 namespace WebCrawl.ConsoleApplication
 {
@@ -22,32 +21,14 @@ namespace WebCrawl.ConsoleApplication
 
                 string url = wrapper.ReadMessage();
 
-                if (!url.EndsWith('/')) 
+                if (!url.EndsWith('/'))
                 {
-                    url = url + '/'; 
+                    url = url + '/';
                 }
 
-                try
-                {
-                    webCrawler.ParseSitemap(url + "sitemap.xml");
-                }
-                catch (FileNotFoundException notFoundException)
-                {
-                    wrapper.ShowMessage(notFoundException.Message);
-                }
+                var result = webCrawler.ParseUrl(url);
+                wrapper.ShowMessage("\nResult:\n" + string.Join("\n", result.Where(x => x.IsCrawlerUrl && !x.IsSitemapUrl).Select(x => x.Url)));
 
-                try
-                {
-                    webCrawler.ParseUrl(url);
-
-                    //wrapper.ShowMessage(string.Join("\n", webCrawler.GetRefsWhichExistOnlyInCrawlList()));
-
-                    //wrapper.ShowMessage(string.Join("\n", webCrawler.GetRefsWhichExistOnlyInSitemap()));
-                }
-                catch (Exception e)
-                {
-                    wrapper.ShowMessage("\n\nException!\n" + e.Message + "\n\n\n\n");
-                }
             }
         }
     }

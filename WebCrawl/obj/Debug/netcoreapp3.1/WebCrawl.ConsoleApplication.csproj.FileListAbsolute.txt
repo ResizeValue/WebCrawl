@@ -19,4 +19,4 @@ C:\Users\a.kuznetsov\Source\Repos\WebCrawl\WebCrawl\obj\Debug\netcoreapp3.1\WebC
 C:\Users\a.kuznetsov\Source\Repos\WebCrawl\WebCrawl\obj\Debug\netcoreapp3.1\WebCrawl.ConsoleApplication.dll
 C:\Users\a.kuznetsov\Source\Repos\WebCrawl\WebCrawl\obj\Debug\netcoreapp3.1\WebCrawl.ConsoleApplication.pdb
 C:\Users\a.kuznetsov\Source\Repos\WebCrawl\WebCrawl\obj\Debug\netcoreapp3.1\WebCrawl.ConsoleApplication.genruntimeconfig.cache
-C:\Users\a.kuznetsov\Source\Repos\WebCrawl\WebCrawl\obj\Debug\netcoreapp3.1\WebCrawl.ConsoleApplication.csproj.CopyComplete
+C:\Users\a.kuznetsov\source\repos\WebCrawl\WebCrawl\obj\Debug\netcoreapp3.1\WebCrawl.ConsoleApplication.csproj.CopyComplete

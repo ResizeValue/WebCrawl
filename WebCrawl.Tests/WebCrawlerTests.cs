@@ -1,41 +1,53 @@
 using NUnit.Framework;
-using Moq;
 using System.IO;
+using Moq;
+using WebCrawl.Crawler;
+using WebCrawl.Sitemap;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebCrawl.Tests
 {
     public class WebCrawlerTests
     {
-        private readonly WebCrawler.WebCrawler webCrawler = new WebCrawler.WebCrawler();
+        private readonly WebCrawler.WebCrawler _mockWebCrawler;
+        private readonly Mock<ReferenceValidation> _mockReferenceValidation;
+        private readonly Mock<WebLoader> _mockWebLoader;
+        private readonly Mock<HtmlParser> _mockHtmlParser;
+        private readonly Mock<XmlParser> _mockXmlParser;
+        private readonly Mock<SitemapParser> _mockSitemapParser;
 
-        [SetUp]
-        public void Setup()
+        public WebCrawlerTests()
         {
-        }
-        
+            _mockReferenceValidation = new Mock<ReferenceValidation>();
+            _mockWebLoader = new Mock<WebLoader>();
+            _mockHtmlParser = new Mock<HtmlParser>(_mockReferenceValidation.Object, _mockWebLoader.Object);
 
-       [Test]
-        public void ParseSitemap_InputEmptyString_ReturnException()
-        {
-            var result = Assert.Throws<FileNotFoundException>(() => { webCrawler.ParseSitemap(string.Empty); });
+            _mockXmlParser = new Mock<XmlParser>();
+            _mockSitemapParser = new Mock<SitemapParser>(_mockXmlParser.Object, _mockWebLoader.Object);
 
-            Assert.AreEqual(result.Message, "Sitemap does not found: ");
+            _mockWebCrawler = new WebCrawler.WebCrawler(_mockHtmlParser.Object, _mockSitemapParser.Object);
+
         }
+
 
         [Test]
-        public void LoadSitemap_InputEmptyString_ReturnException()
+        public void ParseUrl_InputSingle_()
         {
-            var result = Assert.Throws<FileNotFoundException>(() => { webCrawler.ParseSitemap(string.Empty); });
+            _mockHtmlParser.Setup(mock => mock.ParseUrl(It.IsAny<string>()))
+                .Returns(new List<string>
+                {
+                    "Link1"
+                });
 
-            Assert.AreEqual(result.Message, "Sitemap does not found: ");
-        }
+            _mockSitemapParser.Setup(mock => mock.ParseSitemap(It.IsAny<string>()))
+                .Returns(new List<string>());
 
-        [Test]
-        public void LoadSitemap_InputIncorrectUrl_ReturnException()
-        {
-            var result = Assert.Throws<FileNotFoundException>(() => { webCrawler.LoadSitemap("testUrl"); });
 
-            Assert.AreEqual(result.Message, "Sitemap does not found: testUrl/sitemap.xml");
+            var result = _mockWebCrawler.ParseUrl("test").First();
+
+            Assert.AreEqual("Link1", result.Url);
+            Assert.AreEqual(false, result.IsSitemapUrl);
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gMpunsT1RICFymvkJJoTCDikRIRd2gxcR8MDZYHMVPhuUarPH8825cumpSxwOv52CFAYY3ycJgaBqMz0gD0XCw==",
+  "dgSpecHash": "JqgD4CmVFqw0hvGndrjeXEA3xcqEMqvC0UI/JLuLSGB4NihLRCsbYil4LQ7ASvQNRJxpjgtf9OuU/pE0hewkxg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawl\\WebCrawl.ConsoleApplication.csproj",
+  "projectFilePath": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawl\\WebCrawl.ConsoleApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\a.kuznetsov\\.nuget\\packages\\ecocore\\7.0.0.13485\\ecocore.7.0.0.13485.nupkg.sha512",
     "C:\\Users\\a.kuznetsov\\.nuget\\packages\\htmlagilitypack\\1.11.37\\htmlagilitypack.1.11.37.nupkg.sha512",
