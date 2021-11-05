@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj": {}
+    "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj": {}
   },
   "projects": {
-    "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj": {
+    "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj",
+        "projectUniqueName": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj",
         "projectName": "WebCrawl",
-        "projectPath": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj",
+        "projectPath": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj",
         "packagesPath": "C:\\Users\\a.kuznetsov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\obj\\",
+        "outputPath": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\a.kuznetsov\\AppData\\Roaming\\NuGet\\NuGet.Config",
