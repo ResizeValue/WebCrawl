@@ -1,28 +1,10 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace WebCrawl.Crawler
 {
     public class ReferenceValidation
     {
-        public bool IsValidReference(HtmlNode reference)
-        {
-            if (reference.Attributes["href"] == null)
-            {
-                return false;
-            }
-
-            var referenceValue = reference.Attributes["href"].Value;
-
-            if (!IsCorrectUrl(referenceValue))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         private bool IsFile(string url)
         {
             var extentions = new List<string> {
@@ -41,7 +23,7 @@ namespace WebCrawl.Crawler
             return false;
         }
 
-        private bool IsCorrectUrl(string url)
+        public virtual bool IsCorrectUrl(string url)
         {
             if (url == null)
             {

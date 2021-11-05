@@ -1,24 +1,36 @@
-﻿using System.Collections.Generic;
-using WebCrawl.Sitemap;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 
-namespace WebCrawl
+namespace WebCrawl.Sitemap
 {
     public class SitemapParser
     {
         private readonly XmlParser _xmlParser;
-        private readonly WebLoader _sitemaploader;
+        private readonly WebContentLoader _webLoader;
 
-        public SitemapParser(XmlParser xmlParser, WebLoader sitemaploader)
+        public SitemapParser(XmlParser xmlParser, WebContentLoader webLoader)
         {
             _xmlParser = xmlParser;
-            _sitemaploader = sitemaploader;
+            _webLoader = webLoader;
         }
 
         public virtual List<string> ParseSitemap(string url)
         {
-            var downloadedString = _sitemaploader.DownloadString(url);
+            try
+            {
+                var downloadedString = _webLoader.DownloadContent(url);
 
-            return _xmlParser.ParseXml(downloadedString);
+                return _xmlParser.ParseXmlString(downloadedString);
+            }
+            catch (WebException exception)
+            {
+                throw exception;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebCrawl
+namespace WebCrawl.Models
 {
     public class ParsedUrl
     {

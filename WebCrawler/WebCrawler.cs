@@ -1,28 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebCrawl;
+using System.Net;
 using WebCrawl.Crawler;
 using WebCrawl.Models;
+using WebCrawl.Sitemap;
 
-namespace WebCrawler
+namespace WebCrawl
 {
     public class WebCrawler
     {
-        private readonly HtmlParser _htmlParser;
+        private readonly HtmlCrawler _htmlParser;
         private readonly SitemapParser _sitemapParser;
-        private readonly HtmlResponseTracker htmlResposeTracker;
+        private readonly HtmlResponseTracker _htmlResposeTracker;
 
-        public WebCrawler(HtmlParser urlParser, SitemapParser sitemapParser)
+        public WebCrawler(HtmlCrawler urlParser, SitemapParser sitemapParser)
         {
-            htmlResposeTracker = new HtmlResponseTracker();
+            _htmlResposeTracker = new HtmlResponseTracker();
             _htmlParser = urlParser;
             _sitemapParser = sitemapParser;
         }
 
         public virtual List<ParsedUrl> ParseUrl(string url)
         {
-            var crawlUrlsList = _htmlParser.ParseUrl(url);
-            var sitemapUrlsList = _sitemapParser.ParseSitemap(url + "sitemap.xml");
+            var crawlUrlsList = _htmlParser.ParseHtmlDocuments(url);
+
+            List<string> sitemapUrlsList = new List<string>();
+            try
+            {
+                sitemapUrlsList = _sitemapParser.ParseSitemap(url + "sitemap.xml");
+            }
+            catch(WebException exception)
+            {
+                System.Console.WriteLine(exception.Message);
+            }
 
             var allUrls = crawlUrlsList.Union(sitemapUrlsList).Distinct();
 
@@ -42,7 +52,7 @@ namespace WebCrawler
                     select new ResponseParsedUrl
                     {
                         Url = url.Url,
-                        ResponseTime = htmlResposeTracker.CheckResponseTime(url.Url)
+                        ResponseTime = _htmlResposeTracker.CheckResponseTime(url.Url)
                     }).ToList();
         }
     }

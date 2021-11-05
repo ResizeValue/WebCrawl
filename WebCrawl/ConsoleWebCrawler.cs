@@ -4,10 +4,10 @@ namespace WebCrawl.ConsoleApplication
 {
     public class ConsoleWebCrawler
     {
-        private readonly WebCrawler.WebCrawler webCrawler;
+        private readonly WebCrawler webCrawler;
         private readonly ConsoleWrapper wrapper;
 
-        public ConsoleWebCrawler(WebCrawler.WebCrawler crawler, ConsoleWrapper _wrapper)
+        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper _wrapper)
         {
             webCrawler = crawler;
             wrapper = _wrapper;

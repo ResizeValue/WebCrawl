@@ -1,30 +1,28 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace WebCrawl.Crawler
+namespace WebCrawl
 {
     public class HtmlResponseTracker
     {
-        private readonly WebLoader webLoader;
+        private readonly WebContentLoader webLoader;
 
         public HtmlResponseTracker()
         {
-            webLoader = new WebLoader();
+            webLoader = new WebContentLoader();
         }
 
-        public TimeSpan CheckResponseTime(string url)
+        public virtual TimeSpan CheckResponseTime(string url)
         {
             var timer = new Stopwatch();
 
             timer.Start();
 
-            webLoader.DownloadString(url);
+            webLoader.DownloadContent(url);
 
             timer.Stop();
 
-            TimeSpan responseTime = timer.Elapsed;
-
-            return responseTime;
+            return timer.Elapsed;
         }
     }
 }

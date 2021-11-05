@@ -8,9 +8,9 @@ namespace WebCrawl
     {
         static void Main(string[] args)
         {
-            WebCrawler.WebCrawler crawlerClass = new WebCrawler.WebCrawler(
-                new HtmlParser(new ReferenceValidation(), new WebLoader()),
-                new SitemapParser(new XmlParser(), new WebLoader()));
+            WebCrawler crawlerClass = new WebCrawler(
+                new HtmlCrawler(new HtmlPageParser(new WebContentLoader(), new ReferenceValidation())),
+                new SitemapParser(new XmlParser(), new WebContentLoader()));
 
             ConsoleWebCrawler webCrawler = new ConsoleWebCrawler(crawlerClass, new ConsoleWrapper());
 

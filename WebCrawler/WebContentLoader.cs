@@ -1,17 +1,18 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 
 namespace WebCrawl
 {
-    public class WebLoader
+    public class WebContentLoader
     {
         private readonly WebClient webClient;
-        public WebLoader()
+
+        public WebContentLoader()
         {
             webClient = new WebClient() { Encoding = System.Text.Encoding.UTF8 };
         }
-        public string DownloadString(string url)
+
+        public virtual string DownloadContent(string url)
         {
             string downloadedString;
 
@@ -19,9 +20,9 @@ namespace WebCrawl
             {
                 downloadedString = webClient.DownloadString(url);
             }
-            catch (FileNotFoundException)
+            catch (WebException)
             {
-                throw new FileNotFoundException("Sitemap does not found: " + url);
+                throw new WebException("File does not found by path: " + url);
             }
             catch (Exception exception)
             {

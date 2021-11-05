@@ -187,11 +187,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawl\\WebCrawl.ConsoleApplication.csproj",
+      "projectUniqueName": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawl\\WebCrawl.ConsoleApplication.csproj",
       "projectName": "WebCrawl.ConsoleApplication",
-      "projectPath": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawl\\WebCrawl.ConsoleApplication.csproj",
+      "projectPath": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawl\\WebCrawl.ConsoleApplication.csproj",
       "packagesPath": "C:\\Users\\a.kuznetsov\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawl\\obj\\",
+      "outputPath": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawl\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\a.kuznetsov\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -208,8 +208,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj": {
-              "projectPath": "C:\\Users\\a.kuznetsov\\source\\repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj"
+            "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj": {
+              "projectPath": "C:\\Users\\a.kuznetsov\\Source\\Repos\\WebCrawl\\WebCrawler\\WebCrawl.csproj"
             }
           }
         }

@@ -5,11 +5,18 @@ namespace WebCrawl.Sitemap
 {
     public class XmlParser
     {
-        public List<string> ParseXml(string inputString)
+        public virtual List<string> ParseXmlString(string xmlString)
         {
             XmlDocument xmlDocument = new XmlDocument();
 
-            xmlDocument.LoadXml(inputString);
+            try
+            {
+                xmlDocument.LoadXml(xmlString);
+            }
+            catch
+            {
+                return new List<string>();
+            }
 
             XmlNodeList xmlSitemapList = xmlDocument.GetElementsByTagName("url");
 
@@ -24,7 +31,10 @@ namespace WebCrawl.Sitemap
 
                 var sitemapReference = node["loc"].InnerText;
 
-                parsedRefs.Add(sitemapReference);
+                if (sitemapReference != string.Empty)
+                {
+                    parsedRefs.Add(sitemapReference);
+                }
             }
 
             return parsedRefs;
