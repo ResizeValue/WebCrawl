@@ -21,7 +21,7 @@ namespace WebCrawl.Tests.Sitemap
 
 
         [Test, Timeout(1000)]
-        public void ParseSitemap_ShouldReturnAllUrlsFromSitemap()
+        public void ParseSitemap_ShouldCallDownloadContentAndParseXmlStringFuncsOnce()
         {
             var fakeUrl = "http://www.example.com/";
 
@@ -39,7 +39,8 @@ namespace WebCrawl.Tests.Sitemap
 
             var result = sitemapParser.ParseSitemap(fakeUrl);
 
-            Assert.AreEqual(fakeUrlsList, result);
+            _mockWebLoader.Verify(x => x.DownloadContent(It.IsAny<string>()), Times.Once);
+            _mockXmlParser.Verify(x => x.ParseXmlString(It.IsAny<string>()), Times.Once);
         }
     }
 }
