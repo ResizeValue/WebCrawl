@@ -2,11 +2,11 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using WebCrawl.Crawler;
-using WebCrawl.Models;
-using WebCrawl.Sitemap;
+using WebCrawl.Logic.Crawler;
+using WebCrawl.Logic.Models;
+using WebCrawl.Logic.Sitemap;
 
-namespace WebCrawl.Tests
+namespace WebCrawl.Logic.Tests
 {
     public class WebCrawlerTests
     {

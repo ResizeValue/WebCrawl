@@ -1,9 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
-using WebCrawl.Sitemap;
+using WebCrawl.Logic.Sitemap;
 
-namespace WebCrawl.Tests.Sitemap
+namespace WebCrawl.Logic.Tests.Sitemap
 {
     class SitemapParserTests
     {

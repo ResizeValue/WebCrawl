@@ -2,9 +2,9 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net;
-using WebCrawl.Crawler;
+using WebCrawl.Logic.Crawler;
 
-namespace WebCrawl.Tests.Crawler
+namespace WebCrawl.Logic.Tests.Crawler
 {
     class HtmlPageParserTests
     {

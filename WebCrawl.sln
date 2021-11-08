@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.ConsoleApplication", "WebCrawl\WebCrawl.ConsoleApplication.csproj", "{270B57A2-5425-4285-B166-E9BFDA216CA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCrawl", "WebCrawler\WebCrawl.csproj", "{C29E4900-2E17-462D-B25B-72336B4A59F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Logic", "WebCrawler\WebCrawl.Logic.csproj", "{C29E4900-2E17-462D-B25B-72336B4A59F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCrawl.Tests", "WebCrawl.Tests\WebCrawl.Tests.csproj", "{6F5E8C4E-442F-43D1-BDF4-43B644A7676B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Tests", "WebCrawl.Tests\WebCrawl.Tests.csproj", "{6F5E8C4E-442F-43D1-BDF4-43B644A7676B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Entity", "Webcrawl.Entity\WebCrawl.Entity.csproj", "{CC4C6560-2A32-466F-935A-D76F4DC98315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6F5E8C4E-442F-43D1-BDF4-43B644A7676B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F5E8C4E-442F-43D1-BDF4-43B644A7676B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F5E8C4E-442F-43D1-BDF4-43B644A7676B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

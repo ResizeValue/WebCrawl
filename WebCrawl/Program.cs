@@ -1,8 +1,8 @@
-﻿using WebCrawl.ConsoleApplication;
-using WebCrawl.Crawler;
-using WebCrawl.Sitemap;
+﻿using WebCrawl.Logic;
+using WebCrawl.Logic.Crawler;
+using WebCrawl.Logic.Sitemap;
 
-namespace WebCrawl
+namespace WebCrawl.ConsoleApplication
 {
     class Program
     {

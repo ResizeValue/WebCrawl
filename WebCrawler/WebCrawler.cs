@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using WebCrawl.Crawler;
-using WebCrawl.Models;
-using WebCrawl.Sitemap;
+using WebCrawl.Logic.Crawler;
+using WebCrawl.Logic.Models;
+using WebCrawl.Logic.Sitemap;
 
-namespace WebCrawl
+namespace WebCrawl.Logic
 {
     public class WebCrawler
     {
@@ -29,7 +29,7 @@ namespace WebCrawl
             {
                 sitemapUrlsList = _sitemapParser.ParseSitemap(url + "sitemap.xml");
             }
-            catch(WebException exception)
+            catch (WebException exception)
             {
                 System.Console.WriteLine(exception.Message);
             }

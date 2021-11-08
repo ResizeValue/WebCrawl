@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace WebCrawl.Crawler
+namespace WebCrawl.Logic.Crawler
 {
     public class HtmlCrawler
     {

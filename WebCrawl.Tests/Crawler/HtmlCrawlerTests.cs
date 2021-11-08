@@ -1,9 +1,9 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
-using WebCrawl.Crawler;
+using WebCrawl.Logic.Crawler;
 
-namespace WebCrawl.Tests.Crawler
+namespace WebCrawl.Logic.Tests.Crawler
 {
     class HtmlCrawlerTests
     {

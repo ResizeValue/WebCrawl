@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace WebCrawl.Crawler
+namespace WebCrawl.Logic.Crawler
 {
     public class ReferenceValidation
     {
@@ -33,7 +33,7 @@ namespace WebCrawl.Crawler
             bool isAnySymbol = url.Contains("#") || url.Contains("@") || url.Contains("?");
 
             if (url.Length < 1 || isAnySymbol ||
-                IsFile(url) || url.Split(':').Length > 2)
+                IsFile(url) || url.Where(x=>x == ':').Count() > 1)
             {
                 return false;
             }

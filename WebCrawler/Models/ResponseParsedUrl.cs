@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebCrawl.Models
+namespace WebCrawl.Logic.Models
 {
     public class ResponseParsedUrl
     {

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 
-namespace WebCrawl.Tests
+namespace WebCrawl.Logic.Tests
 {
     class HtmlResponseTrackerTests
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace WebCrawl.Sitemap
+namespace WebCrawl.Logic.Sitemap
 {
     public class SitemapParser
     {
