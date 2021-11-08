@@ -28,8 +28,14 @@ namespace WebCrawl.ConsoleApplication
                 }
 
                 var result = webCrawler.ParseUrl(url);
-                wrapper.ShowMessage("\nResult:\n" + string.Join("\n", result.Where(x => x.IsCrawlerUrl && !x.IsSitemapUrl).Select(x => x.Url)));
+                wrapper.ShowMessage("\nResult:\n" + string.Join("\n", result.Select(x => x.Url)));
 
+
+                var sitemapResult = result.Where(x => !x.IsCrawlerUrl && x.IsSitemapUrl);
+                wrapper.ShowMessage("\n\nSitemap only links:\n" + string.Join("\n", sitemapResult.Select(x => x.Url)));
+
+                var crawlerResult = result.Where(x => x.IsCrawlerUrl && !x.IsSitemapUrl);
+                wrapper.ShowMessage("\n\nCrawler only links:\n" + string.Join("\n", crawlerResult.Select(x => x.Url)));
             }
         }
     }
