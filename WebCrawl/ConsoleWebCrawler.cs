@@ -26,16 +26,24 @@ namespace WebCrawl.ConsoleApplication
                 {
                     url = url + '/';
                 }
-
                 var result = webCrawler.ParseUrl(url);
-                wrapper.ShowMessage("\nResult:\n" + string.Join("\n", result.Select(x => x.Url)));
-
+                var responseTime = webCrawler.GetResponseTimeList(result);
 
                 var sitemapResult = result.Where(x => !x.IsCrawlerUrl && x.IsSitemapUrl);
-                wrapper.ShowMessage("\n\nSitemap only links:\n" + string.Join("\n", sitemapResult.Select(x => x.Url)));
+                wrapper.ShowMessage("\n\nUrls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:\n" + string.Join("\n", sitemapResult.Select(x => x.Url)));
 
                 var crawlerResult = result.Where(x => x.IsCrawlerUrl && !x.IsSitemapUrl);
-                wrapper.ShowMessage("\n\nCrawler only links:\n" + string.Join("\n", crawlerResult.Select(x => x.Url)));
+                wrapper.ShowMessage("\n\nUrls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:\n" + string.Join("\n", crawlerResult.Select(x => x.Url)));
+
+                wrapper.ShowMessage("\n\nTiming:\n");
+                
+                foreach (var link in responseTime)
+                {
+                    wrapper.ShowMessage(link.Url + " | " + link.ResponseTime.TotalMilliseconds.ToString("0") + " ms");
+                }
+
+                wrapper.ShowMessage("\n\nUrls(html documents) found after crawling a website: " + result.Where(x => x.IsCrawlerUrl).Count());
+                wrapper.ShowMessage("Urls found in sitemap: " + result.Where(x => x.IsSitemapUrl).Count());
             }
         }
     }

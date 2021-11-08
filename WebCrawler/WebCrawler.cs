@@ -45,7 +45,7 @@ namespace WebCrawl.Logic
                     }).ToList();
         }
 
-        public List<ResponseParsedUrl> GetResponseTimeList(List<ParsedUrl> parsedUrls)
+        public IEnumerable<ResponseParsedUrl> GetResponseTimeList(IEnumerable<ParsedUrl> parsedUrls)
         {
             return (from url in parsedUrls
                     where url.IsCrawlerUrl == true

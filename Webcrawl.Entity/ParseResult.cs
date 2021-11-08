@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebCrawl.Logic.Models;
 
 namespace Webcrawl.Entity
 {
@@ -8,6 +10,8 @@ namespace Webcrawl.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int MyProperty { get; set; }
+        public DateTime CheckDate { get; set; }
+
+        public virtual ICollection<ResponseParsedUrl> Results { get; set; }
     }
 }

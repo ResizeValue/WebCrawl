@@ -1,4 +1,5 @@
-﻿using WebCrawl.Logic;
+﻿using System.Threading.Tasks;
+using WebCrawl.Logic;
 using WebCrawl.Logic.Crawler;
 using WebCrawl.Logic.Sitemap;
 
@@ -6,7 +7,7 @@ namespace WebCrawl.ConsoleApplication
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             WebCrawler crawlerClass = new WebCrawler(
                 new HtmlCrawler(new HtmlPageParser(new WebContentLoader(), new ReferenceValidation())),
