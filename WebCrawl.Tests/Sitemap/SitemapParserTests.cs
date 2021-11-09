@@ -19,7 +19,6 @@ namespace WebCrawl.Logic.Tests.Sitemap
             sitemapParser = new SitemapParser(_mockXmlParser.Object, _mockWebLoader.Object);
         }
 
-
         [Test, Timeout(1000)]
         public void ParseSitemap_ShouldCallDownloadContentAndParseXmlStringFuncsOnce()
         {

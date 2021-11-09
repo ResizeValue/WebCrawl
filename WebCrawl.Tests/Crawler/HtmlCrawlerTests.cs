@@ -5,26 +5,21 @@ using WebCrawl.Logic.Crawler;
 
 namespace WebCrawl.Logic.Tests.Crawler
 {
-    class HtmlCrawlerTests
+    public class HtmlCrawlerTests
     {
-        private readonly ReferenceValidation _mockValidation;
-        private readonly Mock<WebContentLoader> _mockWebLoader;
-
         private readonly Mock<HtmlPageParser> _mockHtmlParser;
-
         private readonly HtmlCrawler _htmlCrawler;
+
         public HtmlCrawlerTests()
         {
-            _mockValidation = new ReferenceValidation();
-            _mockWebLoader = new Mock<WebContentLoader>();
-
-            _mockHtmlParser = new Mock<HtmlPageParser>(_mockWebLoader.Object, _mockValidation);
+            _mockHtmlParser = new Mock<HtmlPageParser>(new Mock<WebContentLoader>().Object,
+                new ReferenceValidation());
 
             _htmlCrawler = new HtmlCrawler(_mockHtmlParser.Object);
         }
 
         [Test, Timeout(1000)]
-        public void ParseUrl_MultipleUrls_ShouldIgnoreDublicates()
+        public void ParseUrl_MultipleUrls_ShouldIgnoreDuplicates()
         {
             var fakeUrl = "https://example.com/";
 

@@ -11,25 +11,15 @@ namespace WebCrawl.Logic.Tests
     public class WebCrawlerTests
     {
         private readonly WebCrawler _mockWebCrawler;
-        private readonly Mock<ReferenceValidation> _mockReferenceValidation;
-        private readonly Mock<WebContentLoader> _mockWebLoader;
         private readonly Mock<HtmlCrawler> _mockHtmlCrawler;
-        private readonly Mock<HtmlPageParser> _mockHtmlParser;
-        private readonly Mock<XmlParser> _mockXmlParser;
         private readonly Mock<SitemapParser> _mockSitemapParser;
 
         public WebCrawlerTests()
         {
-            _mockReferenceValidation = new Mock<ReferenceValidation>();
-            _mockWebLoader = new Mock<WebContentLoader>();
+            var htmlParser = new HtmlPageParser(new WebContentLoader(), new ReferenceValidation());
 
-            _mockHtmlParser = new Mock<HtmlPageParser>(_mockWebLoader.Object, _mockReferenceValidation.Object);
-
-            _mockHtmlCrawler = new Mock<HtmlCrawler>(_mockHtmlParser.Object);
-
-            _mockXmlParser = new Mock<XmlParser>();
-            _mockSitemapParser = new Mock<SitemapParser>(_mockXmlParser.Object, _mockWebLoader.Object);
-
+            _mockHtmlCrawler = new Mock<HtmlCrawler>(htmlParser);
+            _mockSitemapParser = new Mock<SitemapParser>(new XmlParser(), new WebContentLoader());
             _mockWebCrawler = new WebCrawler(_mockHtmlCrawler.Object, _mockSitemapParser.Object);
 
         }
@@ -85,36 +75,25 @@ namespace WebCrawl.Logic.Tests
             Assert.AreEqual(ExpectedResult.Select(x => x.IsCrawlerUrl), resultUrls.Select(x => x.IsCrawlerUrl));
         }
 
-        private List<string> fakeCrawlCollection
-        {
-            get
+        private List<string> fakeCrawlCollection =>
+            new List<string>
             {
-                return new List<string>
-                {
-                    "https://example.com/",
-                    "https://example.com/Home/",
-                    "https://example.com/About/",
-                };
-            }
-        }
-        private List<string> fakeSitemapCollection
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "https://example.com/",
-                    "https://example.com/Home/",
-                    "https://example.com/Contacts/",
-                };
-            }
-        }
+                "https://example.com/",
+                "https://example.com/Home/",
+                "https://example.com/About/",
+            };
 
-        private List<ParsedUrl> ExpectedResult
-        {
-            get
-            {
-                return new List<ParsedUrl>
+        private List<string> fakeSitemapCollection =>
+             new List<string>
+             {
+                 "https://example.com/",
+                 "https://example.com/Home/",
+                 "https://example.com/Contacts/",
+             };
+
+
+        private List<ParsedUrl> ExpectedResult =>
+                new List<ParsedUrl>
                 {
                     new ParsedUrl
                     {
@@ -141,7 +120,5 @@ namespace WebCrawl.Logic.Tests
                         IsSitemapUrl = true
                     }
                 };
-            }
-        }
     }
 }

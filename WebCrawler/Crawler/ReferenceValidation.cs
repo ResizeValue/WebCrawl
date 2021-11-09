@@ -33,7 +33,7 @@ namespace WebCrawl.Logic.Crawler
             bool isAnySymbol = url.Contains("#") || url.Contains("@") || url.Contains("?");
 
             if (url.Length < 1 || isAnySymbol ||
-                IsFile(url) || url.Where(x=>x == ':').Count() > 1)
+                IsFile(url) || url.Count(x => x == ':') > 1)
             {
                 return false;
             }

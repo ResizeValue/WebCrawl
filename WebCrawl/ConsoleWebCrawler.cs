@@ -5,45 +5,56 @@ namespace WebCrawl.ConsoleApplication
 {
     public class ConsoleWebCrawler
     {
-        private readonly WebCrawler webCrawler;
-        private readonly ConsoleWrapper wrapper;
+        private readonly WebCrawler _webCrawler;
+        private readonly ConsoleWrapper _wrapper;
+        private readonly DatabaesManager _databaseManager;
 
-        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper _wrapper)
+        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper wrapper, DatabaesManager databaesManager)
         {
-            webCrawler = crawler;
-            wrapper = _wrapper;
+            _webCrawler = crawler;
+            _wrapper = wrapper;
+            _databaseManager = databaesManager;
         }
 
-        public void Run()
+        public async void Run()
         {
             while (true)
             {
-                wrapper.ShowMessage("Enter the URL: ");
+                _wrapper.ShowMessage("Enter the URL: ");
 
-                string url = wrapper.ReadMessage();
+                string url = _wrapper.ReadMessage();
 
                 if (!url.EndsWith('/'))
                 {
                     url = url + '/';
                 }
-                var result = webCrawler.ParseUrl(url);
-                var responseTime = webCrawler.GetResponseTimeList(result);
+
+                var result = _webCrawler.ParseUrl(url);
+
+                var responseTime = _webCrawler.GetResponseTimeList(result);
+
 
                 var sitemapResult = result.Where(x => !x.IsCrawlerUrl && x.IsSitemapUrl);
-                wrapper.ShowMessage("\n\nUrls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:\n" + string.Join("\n", sitemapResult.Select(x => x.Url)));
+                _wrapper.ShowMessage("\n\nUrls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:\n" + string.Join("\n", sitemapResult.Select(x => x.Url)));
 
                 var crawlerResult = result.Where(x => x.IsCrawlerUrl && !x.IsSitemapUrl);
-                wrapper.ShowMessage("\n\nUrls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:\n" + string.Join("\n", crawlerResult.Select(x => x.Url)));
+                _wrapper.ShowMessage("\n\nUrls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:\n" + string.Join("\n", crawlerResult.Select(x => x.Url)));
 
-                wrapper.ShowMessage("\n\nTiming:\n");
+                _wrapper.ShowMessage("\n\nTiming:\n");
                 
                 foreach (var link in responseTime)
                 {
-                    wrapper.ShowMessage(link.Url + " | " + link.ResponseTime.TotalMilliseconds.ToString("0") + " ms");
+                    _wrapper.ShowMessage(link.Url + " | " + link.ResponseTime.TotalMilliseconds.ToString("0") + " ms");
                 }
 
-                wrapper.ShowMessage("\n\nUrls(html documents) found after crawling a website: " + result.Where(x => x.IsCrawlerUrl).Count());
-                wrapper.ShowMessage("Urls found in sitemap: " + result.Where(x => x.IsSitemapUrl).Count());
+                _wrapper.ShowMessage("\n\nUrls(html documents) found after crawling a website: " + result.Where(x => x.IsCrawlerUrl).Count());
+                _wrapper.ShowMessage("Urls found in sitemap: " + result.Where(x => x.IsSitemapUrl).Count());
+
+                if (responseTime.Count() > 0)
+                {
+                    await _databaseManager.SaveResultAsync(url, responseTime);
+                    _wrapper.ShowMessage("\nResult has been saved to database!");
+                }
             }
         }
     }

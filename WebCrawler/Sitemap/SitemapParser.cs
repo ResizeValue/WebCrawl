@@ -17,20 +17,9 @@ namespace WebCrawl.Logic.Sitemap
 
         public virtual List<string> ParseSitemap(string url)
         {
-            try
-            {
-                var downloadedString = _webLoader.DownloadContent(url);
+            var downloadedString = _webLoader.DownloadContent(url);
 
-                return _xmlParser.ParseXmlString(downloadedString);
-            }
-            catch (WebException exception)
-            {
-                throw exception;
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
+            return _xmlParser.ParseXmlString(downloadedString);
         }
     }
 }

@@ -9,14 +9,16 @@ namespace WebCrawl.Logic.Crawler
     {
         private readonly WebContentLoader _contentLoader;
         private readonly ReferenceValidation _validation;
+
         public HtmlPageParser(WebContentLoader contentLoader, ReferenceValidation validation)
         {
             _contentLoader = contentLoader;
             _validation = validation;
         }
-        public virtual List<string> ParsePageForUrls(string url, string baseAddres)
+
+        public virtual List<string> ParsePageForUrls(string url, string baseUrl)
         {
-            string _baseAddress = baseAddres;
+            string baseAddress = baseUrl;
 
             HtmlDocument htmlDocument = new HtmlDocument();
 
@@ -52,7 +54,7 @@ namespace WebCrawl.Logic.Crawler
 
                 var referenceValue = reference.Attributes["href"].Value;
 
-                referenceValue = StringProcessing(referenceValue, _baseAddress);
+                referenceValue = StringProcessing(referenceValue, baseAddress);
 
                 findedRefsList.Add(referenceValue);
             }

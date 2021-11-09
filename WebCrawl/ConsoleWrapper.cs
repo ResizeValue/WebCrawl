@@ -8,6 +8,7 @@ namespace WebCrawl.ConsoleApplication
         {
             Console.WriteLine(message);
         }
+
         public virtual string ReadMessage()
         {
             return Console.ReadLine();

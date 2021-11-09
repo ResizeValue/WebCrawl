@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using WebCrawl.Logic.Crawler;
 using WebCrawl.Logic.Models;
 using WebCrawl.Logic.Sitemap;
+using WebCrawl.Repository;
 
 namespace WebCrawl.Logic
 {
@@ -11,20 +13,21 @@ namespace WebCrawl.Logic
     {
         private readonly HtmlCrawler _htmlParser;
         private readonly SitemapParser _sitemapParser;
-        private readonly HtmlResponseTracker _htmlResposeTracker;
+        private readonly HtmlResponseTracker _htmlResponseTracker;
 
         public WebCrawler(HtmlCrawler urlParser, SitemapParser sitemapParser)
         {
-            _htmlResposeTracker = new HtmlResponseTracker();
+            _htmlResponseTracker = new HtmlResponseTracker();
             _htmlParser = urlParser;
             _sitemapParser = sitemapParser;
         }
 
-        public virtual List<ParsedUrl> ParseUrl(string url)
+        public virtual IEnumerable<ParsedUrl> ParseUrl(string url)
         {
             var crawlUrlsList = _htmlParser.ParseHtmlDocuments(url);
 
             List<string> sitemapUrlsList = new List<string>();
+
             try
             {
                 sitemapUrlsList = _sitemapParser.ParseSitemap(url + "sitemap.xml");
@@ -33,27 +36,33 @@ namespace WebCrawl.Logic
             {
                 System.Console.WriteLine(exception.Message);
             }
+            catch (Exception exception)
+            {
+                System.Console.WriteLine(exception.Message);
+            }
 
             var allUrls = crawlUrlsList.Union(sitemapUrlsList).Distinct();
 
-            return (from stringUrl in allUrls
-                    select new ParsedUrl
-                    {
-                        Url = stringUrl,
-                        IsSitemapUrl = sitemapUrlsList.Contains(stringUrl),
-                        IsCrawlerUrl = crawlUrlsList.Contains(stringUrl)
-                    }).ToList();
+            var parsedUrlCollection = allUrls.Select(stringUrl => new ParsedUrl 
+            { 
+                Url = stringUrl,
+                IsSitemapUrl = sitemapUrlsList.Contains(stringUrl),
+                IsCrawlerUrl = crawlUrlsList.Contains(stringUrl)
+            });
+
+            return parsedUrlCollection;
         }
 
         public IEnumerable<ResponseParsedUrl> GetResponseTimeList(IEnumerable<ParsedUrl> parsedUrls)
         {
-            return (from url in parsedUrls
-                    where url.IsCrawlerUrl == true
-                    select new ResponseParsedUrl
-                    {
-                        Url = url.Url,
-                        ResponseTime = _htmlResposeTracker.CheckResponseTime(url.Url)
-                    }).ToList();
+            var responseTimeCollection = parsedUrls.Where(x => x.IsCrawlerUrl).
+                Select(stringUrl => new ResponseParsedUrl
+            {
+                Url = stringUrl.Url,
+                ResponseTime = _htmlResponseTracker.CheckResponseTime(stringUrl.Url)
+            }).ToArray();
+
+            return responseTimeCollection;
         }
     }
 }

@@ -10,4 +10,8 @@
     <PackageReference Include="UkadGroup.IRepository" Version="1.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebCrawl.Repository\WebCrawl.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

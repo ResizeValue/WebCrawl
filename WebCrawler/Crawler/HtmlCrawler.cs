@@ -7,7 +7,6 @@ namespace WebCrawl.Logic.Crawler
     public class HtmlCrawler
     {
         private readonly HtmlPageParser _htmlparser;
-        private string _baseAddress;
 
         public HtmlCrawler(HtmlPageParser htmlparser)
         {
@@ -16,7 +15,7 @@ namespace WebCrawl.Logic.Crawler
 
         public virtual List<string> ParseHtmlDocuments(string url)
         {
-            _baseAddress = url;
+            string baseAddress = url;
 
             Queue<string> references = new Queue<string>();
 
@@ -28,18 +27,23 @@ namespace WebCrawl.Logic.Crawler
             {
                 var nextUrl = references.Dequeue();
 
-                if (!nextUrl.StartsWith(_baseAddress) || parsedUrls.Contains(nextUrl))
+                if (!nextUrl.StartsWith(baseAddress) || parsedUrls.Contains(nextUrl))
                 {
                     continue;
                 }
 
                 try
                 {
-                    var findedRefs = _htmlparser.ParsePageForUrls(nextUrl, _baseAddress);
+                    var foundRefs = _htmlparser.ParsePageForUrls(nextUrl, baseAddress);
+
                     parsedUrls.Add(nextUrl);
-                    if (findedRefs != null)
+
+                    if (foundRefs != null)
                     {
-                        findedRefs.ForEach(x => references.Enqueue(x));
+                        foreach (var reference in foundRefs)
+                        {
+                            references.Enqueue(reference);
+                        }
                     }
                 }
                 catch (WebException exception)
