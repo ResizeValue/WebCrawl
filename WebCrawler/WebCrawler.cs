@@ -5,7 +5,6 @@ using System.Net;
 using WebCrawl.Logic.Crawler;
 using WebCrawl.Logic.Models;
 using WebCrawl.Logic.Sitemap;
-using WebCrawl.Repository;
 
 namespace WebCrawl.Logic
 {
@@ -43,8 +42,8 @@ namespace WebCrawl.Logic
 
             var allUrls = crawlUrlsList.Union(sitemapUrlsList).Distinct();
 
-            var parsedUrlCollection = allUrls.Select(stringUrl => new ParsedUrl 
-            { 
+            var parsedUrlCollection = allUrls.Select(stringUrl => new ParsedUrl
+            {
                 Url = stringUrl,
                 IsSitemapUrl = sitemapUrlsList.Contains(stringUrl),
                 IsCrawlerUrl = crawlUrlsList.Contains(stringUrl)
@@ -55,12 +54,12 @@ namespace WebCrawl.Logic
 
         public IEnumerable<ResponseParsedUrl> GetResponseTimeList(IEnumerable<ParsedUrl> parsedUrls)
         {
-            var responseTimeCollection = parsedUrls.Where(x => x.IsCrawlerUrl).
-                Select(stringUrl => new ResponseParsedUrl
-            {
-                Url = stringUrl.Url,
-                ResponseTime = _htmlResponseTracker.CheckResponseTime(stringUrl.Url)
-            }).ToArray();
+            var responseTimeCollection = parsedUrls.Where(x => x.IsCrawlerUrl)
+                .Select(stringUrl => new ResponseParsedUrl
+                {
+                    Url = stringUrl.Url,
+                    ResponseTime = _htmlResponseTracker.CheckResponseTime(stringUrl.Url)
+                }).ToArray();
 
             return responseTimeCollection;
         }

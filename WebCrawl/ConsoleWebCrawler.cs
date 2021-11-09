@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WebCrawl.Logic;
 
 namespace WebCrawl.ConsoleApplication
@@ -7,9 +8,9 @@ namespace WebCrawl.ConsoleApplication
     {
         private readonly WebCrawler _webCrawler;
         private readonly ConsoleWrapper _wrapper;
-        private readonly DatabaesManager _databaseManager;
+        private readonly RepositoryService _databaseManager;
 
-        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper wrapper, DatabaesManager databaesManager)
+        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper wrapper, RepositoryService databaesManager)
         {
             _webCrawler = crawler;
             _wrapper = wrapper;
@@ -41,7 +42,7 @@ namespace WebCrawl.ConsoleApplication
                 _wrapper.ShowMessage("\n\nUrls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:\n" + string.Join("\n", crawlerResult.Select(x => x.Url)));
 
                 _wrapper.ShowMessage("\n\nTiming:\n");
-                
+
                 foreach (var link in responseTime)
                 {
                     _wrapper.ShowMessage(link.Url + " | " + link.ResponseTime.TotalMilliseconds.ToString("0") + " ms");
@@ -52,8 +53,15 @@ namespace WebCrawl.ConsoleApplication
 
                 if (responseTime.Count() > 0)
                 {
-                    await _databaseManager.SaveResultAsync(url, responseTime);
-                    _wrapper.ShowMessage("\nResult has been saved to database!");
+                    try
+                    {
+                        await _databaseManager.SaveResultAsync(url, responseTime);
+                        _wrapper.ShowMessage("\nResult has been saved to database!");
+                    }
+                    catch (Exception exception)
+                    {
+                        _wrapper.ShowMessage(exception.Message);
+                    }
                 }
             }
         }

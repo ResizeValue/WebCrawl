@@ -27,22 +27,20 @@ namespace WebCrawl.ConsoleApplication
         Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {
-                services.AddEfRepository<WebCrawlDbContext>(options => 
+                services.AddEfRepository<WebCrawlDbContext>(options =>
                 options.UseSqlServer(@"Server=DESKTOP-LRDGVT1;Database=WebCrawlerDb;User Id=sa;Password=q1w2e3r4;"));
 
                 services.AddScoped<ConsoleWrapper>();
                 services.AddScoped<ConsoleWebCrawler>();
-                services.AddScoped<ConsoleWrapper>();
                 services.AddScoped<HtmlCrawler>();
                 services.AddScoped<HtmlPageParser>();
                 services.AddScoped<ReferenceValidation>();
                 services.AddScoped<SitemapParser>();
                 services.AddScoped<XmlParser>();
-                services.AddScoped<DatabaesManager>();
+                services.AddScoped<RepositoryService>();
                 services.AddScoped<HtmlResponseTracker>();
                 services.AddScoped<WebContentLoader>();
                 services.AddScoped<WebCrawler>();
-                services.AddScoped<ReusltsRepository>();
             }).ConfigureLogging(options => options.SetMinimumLevel(LogLevel.Error));
     }
 }
