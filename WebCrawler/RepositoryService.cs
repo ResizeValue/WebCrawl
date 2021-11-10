@@ -23,7 +23,7 @@ namespace WebCrawl.Logic
             {
                 BasePage = baseUrl,
                 Date = DateTime.Now,
-                Pages = urls.Select(x => new CheckedPage { Url = x.Url, ResponseTime = x.ResponseTime }).ToArray() 
+                Pages = urls.Select(x => new ParsedHtmlDocument { Url = x.Url, ResponseTime = x.ResponseTime }).ToArray() 
             };
 
             await _repository.AddAsync(result);

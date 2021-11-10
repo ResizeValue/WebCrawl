@@ -8,13 +8,13 @@ namespace WebCrawl.ConsoleApplication
     {
         private readonly WebCrawler _webCrawler;
         private readonly ConsoleWrapper _wrapper;
-        private readonly RepositoryService _databaseManager;
+        private readonly RepositoryService _repositoryService;
 
-        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper wrapper, RepositoryService databaesManager)
+        public ConsoleWebCrawler(WebCrawler crawler, ConsoleWrapper wrapper, RepositoryService repositoryService)
         {
             _webCrawler = crawler;
             _wrapper = wrapper;
-            _databaseManager = databaesManager;
+            _repositoryService = repositoryService;
         }
 
         public async void Run()
@@ -55,7 +55,7 @@ namespace WebCrawl.ConsoleApplication
                 {
                     try
                     {
-                        await _databaseManager.SaveResultAsync(url, responseTime);
+                        await _repositoryService.SaveResultAsync(url, responseTime);
                         _wrapper.ShowMessage("\nResult has been saved to database!");
                     }
                     catch (Exception exception)

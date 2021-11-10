@@ -4,11 +4,11 @@ using WebCrawl.Entity.Models;
 
 namespace WebCrawl.Entity.Configuration
 {
-    public class CrawlingResultConfiguration : IEntityTypeConfiguration<CrawlingResult>
+    public class ParsedHtmlDocumentConfiguration : IEntityTypeConfiguration<ParsedHtmlDocument>
     {
-        public void Configure(EntityTypeBuilder<CrawlingResult> builder)
+        public void Configure(EntityTypeBuilder<ParsedHtmlDocument> builder)
         {
-            builder.Property(x => x.BasePage)
+            builder.Property(x => x.Url)
                 .IsRequired();
 
             builder.HasKey(x => x.Id);

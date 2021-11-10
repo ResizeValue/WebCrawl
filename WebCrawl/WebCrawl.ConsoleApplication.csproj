@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.37" />
     <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="UkadGroup.EfRepository" Version="1.0.1" />
@@ -19,5 +20,9 @@
     <ProjectReference Include="..\Webcrawl.Entity\WebCrawl.Entity.csproj" />
     <ProjectReference Include="..\WebCrawler\WebCrawl.Logic.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(ProjectDir)appsettings.json&quot; &quot;$(TargetDir)appsettings.json&quot;" />
+  </Target>
 
 </Project>
