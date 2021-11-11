@@ -1,0 +1,90 @@
+﻿@model WebCrawl.WebApplication.viewModels.ResultsViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <div class="d-flex flex-column">
+        <form asp-action="ParseSiteByUrl"
+              asp-controller="WebCrawler"
+              asp-route-Input="@Model.Input"
+              method="post">
+            <label for="url"></label>
+            <input id="url" type="text" asp-for="Input.Url" placeholder="Enter the URL" />
+            <input id="parseBtn" type="submit" value="Parse URL" />
+            
+        </form>
+    </div>
+    <div class="pt-3">
+        <table id="resultTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Base Url</th>
+                    <th>Date</th>
+                    <th>Pages count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    @foreach (var result in Model.Results)
+                    {
+                        i++;
+                        <tr class="table-result-link" onclick="window.location.href = '@Url.Action("Index", "Details", new { @id = result.Id })'">
+                            <td>@i</td>
+                            <td>@result.BasePage</td>
+                            <td>@result.Date.ToShortDateString()</td>
+                            <td>@result.Pages.Count() pages</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!--paging-->
+    <div class="d-flex justify-content-center">
+        @{
+            <input type="button"
+                   class="btn btn-secondary m-1 p-2"
+                   onclick="window.location.href = '@Url.Action("Index", "WebCrawler", new { @curPage = Model.CurrentPage-1 })'"
+                   value="Previous"
+                   @(Model.CurrentPage == 1 ? "disabled" : "")>
+
+
+            if (Model.MaxPages > Model.CurrentPage)
+            {
+                for (int pagesCount = 1; pagesCount <= Model.TotalPages && pagesCount <= Model.MaxPages; pagesCount++)
+                {
+                    <a class="@(pagesCount == Model.CurrentPage ? "btn-secondary" : "btn-outline-secondary") btn m-1 p-2"
+                       asp-action="Index"
+                       asp-controller="WebCrawler"
+                       asp-route-curPage="@pagesCount">
+                        @pagesCount
+                    </a>
+                }
+            }
+            else
+            {
+                var pageRange = Model.CurrentPage - 3;
+                for (int pagesCount = pageRange; pagesCount <= Model.TotalPages && pagesCount < Model.MaxPages + pageRange; pagesCount++)
+                {
+                    <a class="@(pagesCount == Model.CurrentPage ? "btn-secondary" : "btn-outline-secondary") btn m-1 p-2"
+                       asp-action="Index"
+                       asp-controller="WebCrawler"
+                       asp-route-curPage="@pagesCount">
+                        @pagesCount
+                    </a>
+                }
+            }
+
+            <input type="button"
+                   class="btn btn-secondary m-1 p-2"
+                   onclick="window.location.href = '@Url.Action("Index", "WebCrawler", new { @curPage = Model.CurrentPage+1 })'"
+                   value="Next"
+                   @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")>
+        }
+    </div>
+</div>

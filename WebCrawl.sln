@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.ConsoleApplication", "WebCrawl\WebCrawl.ConsoleApplication.csproj", "{270B57A2-5425-4285-B166-E9BFDA216CA8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Logic", "WebCrawler\WebCrawl.Logic.csproj", "{C29E4900-2E17-462D-B25B-72336B4A59F2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Entity", "Webcrawl.Entity\WebCrawl.Entity.csproj", "{CC4C6560-2A32-466F-935A-D76F4DC98315}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Repository", "WebCrawl.Repository\WebCrawl.Repository.csproj", "{45A47489-5A9E-4635-8E3A-B49CA1FBBEE6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Logic.Tests", "WebCrawl.Tests\WebCrawl.Logic.Tests.csproj", "{C7DFC043-5D28-4EB9-BFEB-01867A60E19D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.ConsoleApplication", "WebCrawl.ConsoleApplication\WebCrawl.ConsoleApplication.csproj", "{D1101C65-69BD-45C3-B996-FA1818471571}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Logic", "WebCrawl.Logic\WebCrawl.Logic.csproj", "{FE10C8CD-89B6-4D5E-959F-E2B4A2641892}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.WebApplication", "WebCrawl.WebApplication\WebCrawl.WebApplication.csproj", "{1CAC901E-332D-4160-9E91-3593A43E764A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{270B57A2-5425-4285-B166-E9BFDA216CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{270B57A2-5425-4285-B166-E9BFDA216CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{270B57A2-5425-4285-B166-E9BFDA216CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{270B57A2-5425-4285-B166-E9BFDA216CA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C29E4900-2E17-462D-B25B-72336B4A59F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C29E4900-2E17-462D-B25B-72336B4A59F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C29E4900-2E17-462D-B25B-72336B4A59F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C29E4900-2E17-462D-B25B-72336B4A59F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC4C6560-2A32-466F-935A-D76F4DC98315}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +33,18 @@ Global
 		{C7DFC043-5D28-4EB9-BFEB-01867A60E19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7DFC043-5D28-4EB9-BFEB-01867A60E19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7DFC043-5D28-4EB9-BFEB-01867A60E19D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1101C65-69BD-45C3-B996-FA1818471571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1101C65-69BD-45C3-B996-FA1818471571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1101C65-69BD-45C3-B996-FA1818471571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1101C65-69BD-45C3-B996-FA1818471571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE10C8CD-89B6-4D5E-959F-E2B4A2641892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE10C8CD-89B6-4D5E-959F-E2B4A2641892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE10C8CD-89B6-4D5E-959F-E2B4A2641892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE10C8CD-89B6-4D5E-959F-E2B4A2641892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CAC901E-332D-4160-9E91-3593A43E764A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CAC901E-332D-4160-9E91-3593A43E764A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CAC901E-332D-4160-9E91-3593A43E764A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CAC901E-332D-4160-9E91-3593A43E764A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
