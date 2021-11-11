@@ -14,9 +14,9 @@ namespace WebCrawl.Logic
         private readonly SitemapParser _sitemapParser;
         private readonly HtmlResponseTracker _htmlResponseTracker;
 
-        public WebCrawler(HtmlCrawler urlParser, SitemapParser sitemapParser)
+        public WebCrawler(HtmlCrawler urlParser, SitemapParser sitemapParser, HtmlResponseTracker htmlResponseTracker)
         {
-            _htmlResponseTracker = new HtmlResponseTracker();
+            _htmlResponseTracker = htmlResponseTracker;
             _htmlParser = urlParser;
             _sitemapParser = sitemapParser;
         }
@@ -29,7 +29,7 @@ namespace WebCrawl.Logic
 
             try
             {
-                sitemapUrlsList = _sitemapParser.ParseSitemap(url + "sitemap.xml");
+                sitemapUrlsList = _sitemapParser.ParseSitemap(url);
             }
             catch (WebException exception)
             {
@@ -52,12 +52,14 @@ namespace WebCrawl.Logic
             return parsedUrlCollection;
         }
 
-        public IEnumerable<ResponseParsedUrl> GetResponseTimeList(IEnumerable<ParsedUrl> parsedUrls)
+        public virtual IEnumerable<ResponseParsedUrl> GetResponseTimeList(IEnumerable<ParsedUrl> parsedUrls)
         {
-            var responseTimeCollection = parsedUrls.Where(x => x.IsCrawlerUrl)
+            var responseTimeCollection = parsedUrls
                 .Select(stringUrl => new ResponseParsedUrl
                 {
                     Url = stringUrl.Url,
+                    IsCrawlerUrl = stringUrl.IsCrawlerUrl,
+                    IsSitemapUrl = stringUrl.IsSitemapUrl,
                     ResponseTime = _htmlResponseTracker.CheckResponseTime(stringUrl.Url)
                 }).ToArray();
 

@@ -4,9 +4,69 @@
 }
 
 <div>
-    <h2>Result for @Model.BaseUrl</h2>
 
-    <div class="pt-3">
+    @Html.ActionLink("Back", "Index", "Results", null, new { @class = "btn btn-primary" })
+
+    <h2 class="text-center">Report for @Model.BaseUrl</h2>
+
+    <hr />
+
+    <div class="pt-5 pb-5">
+        <h4 class="text-center p-1">Urls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    @foreach (var result in Model.Pages.Where(x => !x.IsSitemapLink && x.IsCrawlingLink))
+                    {
+                        i++;
+                        <tr class="table-result-link">
+                            <td>@i</td>
+                            <td>@result.Url</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    <div class="pt-5 pb-5">
+        <h4 class="text-center p-1">Urls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    i = 0;
+                    @foreach (var result in Model.Pages.Where(x => x.IsSitemapLink && !x.IsCrawlingLink))
+                    {
+                        i++;
+                        <tr class="table-result-link">
+                            <td>@i</td>
+                            <td>@result.Url</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    <div class="pt-5 pb-5">
+        <h4 class="text-center p-1">Timing</h4>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -17,8 +77,8 @@
             </thead>
             <tbody>
                 @{
-                    int i = 0;
-                    @foreach (var result in Model.Pages)
+                    i = 0;
+                    @foreach (var result in Model.Pages.OrderBy(x => x.ResponseTime))
                     {
                         i++;
                         <tr class="table-result-link">
@@ -32,51 +92,12 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-center">
-        @{
-            <input type="button"
-                   class="btn btn-secondary m-1 p-2"
-                   onclick="window.location.href = '@Url.Action("Index", "Details", new { @id = Model.Id, @curPage = Model.CurrentPage-1 })'"
-                   value="Previous"
-                   @(Model.CurrentPage == 1 ? "disabled" : "")>
+    <hr />
 
-
-            if (Model.MaxPages > Model.CurrentPage)
-            {
-                for (int pagesCount = 1; pagesCount <= Model.TotalPages && pagesCount <= Model.MaxPages; pagesCount++)
-                {
-                    <a class="@(pagesCount == Model.CurrentPage ? "btn-secondary" : "btn-outline-secondary") btn m-1 p-2"
-                       asp-action="Index"
-                       asp-controller="Details"
-                       asp-route-id="@Model.Id"
-                       asp-route-curPage="@pagesCount">
-                        @pagesCount
-                    </a>
-                }
-            }
-            else
-            {
-                var pageRange = Model.CurrentPage - 3;
-                for (int pagesCount = pageRange; pagesCount <= Model.TotalPages && pagesCount < Model.MaxPages + pageRange; pagesCount++)
-                {
-                    <a class="@(pagesCount == Model.CurrentPage ? "btn-secondary" : "btn-outline-secondary") btn m-1 p-2"
-                       asp-action="Index"
-                       asp-controller="Details"
-                       asp-route-id="@Model.Id"
-                       asp-route-curPage="@pagesCount">
-                        @pagesCount
-                    </a>
-                }
-            }
-
-            <input type="button"
-                   class="btn btn-secondary m-1 p-2"
-                   onclick="window.location.href = '@Url.Action("Index", "Details", new { @id = Model.Id, @curPage = Model.CurrentPage+1 })'"
-                   value="Next"
-                   @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")>
-        }
+    <div class="d-flex flex-column mt-2">
+        <label class="h4 p-2">Total sitemap links: @Model.Pages.Count(x => x.IsSitemapLink)</label>
+        <label class="h4 p-2">Total crawler links: @Model.Pages.Count(x => x.IsCrawlingLink)</label>
     </div>
-
 
 </div>
 

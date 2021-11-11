@@ -6,14 +6,23 @@
 
 <div>
     <div class="d-flex flex-column">
-        <form asp-action="ParseSiteByUrl"
-              asp-controller="WebCrawler"
-              asp-route-Input="@Model.Input"
+
+        <form class="text-center"
+              asp-action="ParseSiteByUrl"
+              asp-controller="Results"
               method="post">
-            <label for="url"></label>
-            <input id="url" type="text" asp-for="Input.Url" placeholder="Enter the URL" />
-            <input id="parseBtn" type="submit" value="Parse URL" />
-            
+            <label class="h4 p-1">Parse site by home url</label>
+            <div class="text-center">
+                <input id="url" class="@(ViewData.ModelState.IsValid ? "" : "border-danger") mh-100 w-50" type="text" asp-for="InputUrl" placeholder="Enter the URL" />
+                <input id="parseBtn" class="btn btn-info p-1" type="submit" value="Parse URL" />
+            </div>
+            <div class="m-1">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <label class="text-danger">@ViewData.ModelState.Values.SelectMany(x => x.Errors).FirstOrDefault().ErrorMessage</label>
+                }
+            </div>
+            <input asp-for="CurrentPage" type="hidden" />
         </form>
     </div>
     <div class="pt-3">
@@ -49,7 +58,7 @@
         @{
             <input type="button"
                    class="btn btn-secondary m-1 p-2"
-                   onclick="window.location.href = '@Url.Action("Index", "WebCrawler", new { @curPage = Model.CurrentPage-1 })'"
+                   onclick="window.location.href = '@Url.Action("Index", "Results", new { @curPage = Model.CurrentPage-1 })'"
                    value="Previous"
                    @(Model.CurrentPage == 1 ? "disabled" : "")>
 
@@ -60,7 +69,7 @@
                 {
                     <a class="@(pagesCount == Model.CurrentPage ? "btn-secondary" : "btn-outline-secondary") btn m-1 p-2"
                        asp-action="Index"
-                       asp-controller="WebCrawler"
+                       asp-controller="Results"
                        asp-route-curPage="@pagesCount">
                         @pagesCount
                     </a>
@@ -73,7 +82,7 @@
                 {
                     <a class="@(pagesCount == Model.CurrentPage ? "btn-secondary" : "btn-outline-secondary") btn m-1 p-2"
                        asp-action="Index"
-                       asp-controller="WebCrawler"
+                       asp-controller="Results"
                        asp-route-curPage="@pagesCount">
                         @pagesCount
                     </a>
@@ -82,7 +91,7 @@
 
             <input type="button"
                    class="btn btn-secondary m-1 p-2"
-                   onclick="window.location.href = '@Url.Action("Index", "WebCrawler", new { @curPage = Model.CurrentPage+1 })'"
+                   onclick="window.location.href = '@Url.Action("Index", "Results", new { @curPage = Model.CurrentPage+1 })'"
                    value="Next"
                    @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")>
         }

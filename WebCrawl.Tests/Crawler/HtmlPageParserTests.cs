@@ -15,7 +15,7 @@ namespace WebCrawl.Logic.Tests.Crawler
         {
             _mockWebLoader = new Mock<WebContentLoader>();
 
-            _htmlParser = new HtmlPageParser(_mockWebLoader.Object, new ReferenceValidation());
+            _htmlParser = new HtmlPageParser(_mockWebLoader.Object, new ReferenceValidation(new WebContentLoader()), new UrlConverter());
         }
 
         [Test, Timeout(1000)]

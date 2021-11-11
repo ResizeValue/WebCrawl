@@ -1,5 +1,3 @@
-using System;
-
 namespace WebCrawl.WebApplication.Models
 {
     public class ErrorViewModel

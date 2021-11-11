@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 namespace WebCrawl.Logic
 {
@@ -16,18 +15,7 @@ namespace WebCrawl.Logic
         {
             string downloadedString;
 
-            try
-            {
-                downloadedString = webClient.DownloadString(url);
-            }
-            catch (WebException)
-            {
-                throw new WebException("File does not found by path: " + url);
-            }
-            catch (Exception exception)
-            {
-                throw new Exception(exception.Message);
-            }
+            downloadedString = webClient.DownloadString(url);
 
             return downloadedString;
         }

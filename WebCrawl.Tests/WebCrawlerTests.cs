@@ -16,11 +16,11 @@ namespace WebCrawl.Logic.Tests
 
         public WebCrawlerTests()
         {
-            var htmlParser = new HtmlPageParser(new WebContentLoader(), new ReferenceValidation());
+            var htmlParser = new HtmlPageParser(new WebContentLoader(), new ReferenceValidation(new WebContentLoader()), new UrlConverter());
 
             _mockHtmlCrawler = new Mock<HtmlCrawler>(htmlParser);
-            _mockSitemapParser = new Mock<SitemapParser>(new XmlParser(), new WebContentLoader());
-            _mockWebCrawler = new WebCrawler(_mockHtmlCrawler.Object, _mockSitemapParser.Object);
+            _mockSitemapParser = new Mock<SitemapParser>(new XmlParser(), new WebContentLoader(), new UrlConverter());
+            _mockWebCrawler = new WebCrawler(_mockHtmlCrawler.Object, _mockSitemapParser.Object, new HtmlResponseTracker());
 
         }
 

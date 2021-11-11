@@ -1,32 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using WebCrawl.Logic;
 using WebCrawl.Logic.Services;
 using WebCrawl.WebApplication.Models;
+using WebCrawl.WebApplication.Services;
 using WebCrawl.WebApplication.viewModels;
 
 namespace WebCrawl.WebApplication.Controllers
 {
-    public class WebCrawlerController : Controller
+    public class ResultsController : Controller
     {
-        private readonly ILogger<WebCrawlerController> _logger;
+        private readonly ILogger<ResultsController> _logger;
         private readonly CrawlerService _service;
         private readonly ValidationInputUrlService _validation;
+        private readonly ViewMapperService _viewMapper;
 
-        public WebCrawlerController(ILogger<WebCrawlerController> logger, CrawlerService service, ValidationInputUrlService validation)
+        private const int maxPagesCount = 7;
+        private const int basePageSize = 5;
+
+        public ResultsController(ILogger<ResultsController> logger,
+            CrawlerService service,
+            ViewMapperService viewMapper,
+            ValidationInputUrlService validation)
         {
             _logger = logger;
             _service = service;
             _validation = validation;
+            _viewMapper = viewMapper;
         }
 
         [HttpGet]
-        public IActionResult Index(int curPage = 1, int pageSize = 5, int maxPages = 7)
+        public IActionResult Index(int curPage = 1, int pageSize = basePageSize, int maxPages = maxPagesCount)
         {
             var results = _service.GetAllResult();
 
@@ -42,18 +49,27 @@ namespace WebCrawl.WebApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ParseSiteByUrl(Input input)
+        public async Task<IActionResult> ParseSiteByUrl(ResultsViewModel model)
         {
-            if (_validation.IsValidInputUrl(input.Url))
+            if (_validation.IsValidInputUrl(model.InputUrl))
             {
-                await _service.ParseUrlAndSaveResultAsync(input.Url);
+                await _service.ParseUrlAndSaveResultAsync(model.InputUrl);
             }
             else
             {
                 ModelState.AddModelError("IncorrectUrl", _validation.ErrorMessage);
             }
 
-            return RedirectToAction("Index");
+            var page = new PageTemplate
+            {
+                CurrentPage = model.CurrentPage,
+                MaxPages = maxPagesCount,
+                PageSize = basePageSize
+            };
+
+            var resultModel = _viewMapper.GetResultsViewModel(_service.GetAllResult(), page, model.InputUrl);
+
+            return View("Index", resultModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

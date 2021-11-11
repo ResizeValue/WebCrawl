@@ -18,7 +18,14 @@ namespace WebCrawl.Logic
 
             timer.Start();
 
-            webLoader.DownloadContent(url);
+            try
+            {
+                webLoader.DownloadContent(url);
+            }
+            catch
+            {
+                new TimeSpan();
+            }
 
             timer.Stop();
 

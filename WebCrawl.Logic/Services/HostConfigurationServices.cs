@@ -19,6 +19,7 @@ namespace WebCrawl.Logic.Services
             services.AddScoped<WebCrawler>();
             services.AddScoped<CrawlerService>();
             services.AddScoped<ValidationInputUrlService>();
+            services.AddScoped<UrlConverter>();
 
             return services;
         }

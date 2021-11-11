@@ -13,7 +13,7 @@ namespace WebCrawl.Logic.Tests.Crawler
         public HtmlCrawlerTests()
         {
             _mockHtmlParser = new Mock<HtmlPageParser>(new Mock<WebContentLoader>().Object,
-                new ReferenceValidation());
+                new ReferenceValidation(new WebContentLoader()), new UrlConverter());
 
             _htmlCrawler = new HtmlCrawler(_mockHtmlParser.Object);
         }

@@ -16,7 +16,7 @@ namespace WebCrawl.Logic.Tests.Sitemap
             _mockXmlParser = new Mock<XmlParser>();
             _mockWebLoader = new Mock<WebContentLoader>();
 
-            sitemapParser = new SitemapParser(_mockXmlParser.Object, _mockWebLoader.Object);
+            sitemapParser = new SitemapParser(_mockXmlParser.Object, _mockWebLoader.Object, new UrlConverter());
         }
 
         [Test, Timeout(1000)]

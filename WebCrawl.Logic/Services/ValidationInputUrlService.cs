@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebCrawl.Logic.Crawler;
+﻿using WebCrawl.Logic.Crawler;
 
 namespace WebCrawl.Logic.Services
 {
@@ -19,12 +16,14 @@ namespace WebCrawl.Logic.Services
             if (!base.IsCorrectUrl(url))
             {
                 ErrorMessage = "Incorrect string format";
+
                 return false;
             }
 
             if (!base.IsValidInputUrl(url))
             {
-                ErrorMessage = "Can't find a site";
+                ErrorMessage = "Can't find a website";
+
                 return false;
             }
 

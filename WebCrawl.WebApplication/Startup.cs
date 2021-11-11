@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebCrawl.Logic.Services;
 using WebCrawl.Repository.Configuration;
+using WebCrawl.WebApplication.Services;
 
 namespace WebCrawl.WebApplication
 {
@@ -17,15 +18,16 @@ namespace WebCrawl.WebApplication
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ViewMapperService>();
+
             services.AddEfRepository(Configuration);
             services.AddScoped();
+
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -34,8 +36,8 @@ namespace WebCrawl.WebApplication
             }
             else
             {
-                app.UseExceptionHandler("/WebCrawler/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Results/Error");
+
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -49,7 +51,7 @@ namespace WebCrawl.WebApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=WebCrawler}/{action=Index}/{id?}");
+                    pattern: "{controller=Results}/{action=Index}/{id?}");
             });
         }
     }

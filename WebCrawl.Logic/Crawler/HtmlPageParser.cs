@@ -1,7 +1,5 @@
 ﻿using HtmlAgilityPack;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 
 namespace WebCrawl.Logic.Crawler
 {
@@ -9,27 +7,20 @@ namespace WebCrawl.Logic.Crawler
     {
         private readonly WebContentLoader _contentLoader;
         private readonly ReferenceValidation _validation;
+        private readonly UrlConverter _converter;
 
-        public HtmlPageParser(WebContentLoader contentLoader, ReferenceValidation validation)
+        public HtmlPageParser(WebContentLoader contentLoader, ReferenceValidation validation, UrlConverter converter)
         {
             _contentLoader = contentLoader;
             _validation = validation;
+            _converter = converter;
         }
 
         public virtual List<string> ParsePageForUrls(string url, string baseUrl)
         {
-            string baseAddress = baseUrl;
-
             HtmlDocument htmlDocument = new HtmlDocument();
 
-            try
-            {
-                htmlDocument.LoadHtml(_contentLoader.DownloadContent(url));
-            }
-            catch (WebException exception)
-            {
-                throw new WebException(exception.Message);
-            }
+            htmlDocument.LoadHtml(_contentLoader.DownloadContent(url));
 
             var findedReferences = htmlDocument.DocumentNode.SelectNodes("//a");
 
@@ -54,7 +45,7 @@ namespace WebCrawl.Logic.Crawler
 
                 var referenceValue = reference.Attributes["href"].Value;
 
-                referenceValue = StringProcessing(referenceValue, baseAddress);
+                referenceValue = _converter.CreateAbsoluteUrl(referenceValue, baseUrl);
 
                 findedRefsList.Add(referenceValue);
             }
@@ -62,19 +53,5 @@ namespace WebCrawl.Logic.Crawler
             return findedRefsList;
         }
 
-        private string StringProcessing(string url, string baseAddress)
-        {
-            if (url.First() == '/')
-            {
-                url = url.Remove(0, 1);
-            }
-
-            if (!url.Contains("http"))
-            {
-                url = baseAddress + url;
-            }
-
-            return url;
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace WebCrawl.Logic.Tests.Crawler
 
         public ReferenceValidationTests()
         {
-            validationTests = new ReferenceValidation();
+            validationTests = new ReferenceValidation(new WebContentLoader());
         }
 
         [Test, Timeout(1000)]

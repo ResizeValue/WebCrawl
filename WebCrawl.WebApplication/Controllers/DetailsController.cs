@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
-using WebCrawl.Logic;
 using WebCrawl.Logic.Services;
 using WebCrawl.WebApplication.viewModels;
 
@@ -12,13 +7,15 @@ namespace WebCrawl.WebApplication.Controllers
 {
     public class DetailsController : Controller
     {
-        private readonly RepositoryService _service;
-        public DetailsController(RepositoryService service)
+        private readonly CrawlerService _service;
+
+        public DetailsController(CrawlerService service)
         {
             _service = service;
         }
+
         [HttpGet]
-        public ActionResult Index(int id, int curPage = 1, int pageSize = 10, int maxPages = 7)
+        public ActionResult Index(int id)
         {
             var result = _service.GetResultById(id);
 
@@ -26,10 +23,7 @@ namespace WebCrawl.WebApplication.Controllers
             {
                 Id = id,
                 BaseUrl = result.BasePage,
-                Pages = result.Pages.Skip((curPage-1) * pageSize).Take(pageSize).ToArray(),
-                CurrentPage = curPage,
-                MaxPages = maxPages,
-                TotalPages = (int)Math.Ceiling((double)result.Pages.Count / pageSize)
+                Pages = result.Pages.ToArray()
             };
 
             return View(detailModel);

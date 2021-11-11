@@ -31,6 +31,7 @@ namespace WebCrawl.Logic.Sitemap
 
                 var sitemapReference = node["loc"].InnerText;
 
+
                 if (sitemapReference != string.Empty)
                 {
                     parsedRefs.Add(sitemapReference);

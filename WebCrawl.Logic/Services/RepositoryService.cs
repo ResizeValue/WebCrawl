@@ -23,7 +23,13 @@ namespace WebCrawl.Logic.Services
             {
                 BasePage = baseUrl,
                 Date = DateTime.Now,
-                Pages = urls.Select(x => new ParsedHtmlDocument { Url = x.Url, ResponseTime = x.ResponseTime }).ToArray() 
+                Pages = urls.Select(x => new ParsedHtmlDocument
+                {
+                    Url = x.Url,
+                    ResponseTime = x.ResponseTime,
+                    IsCrawlingLink = x.IsCrawlerUrl,
+                    IsSitemapLink = x.IsSitemapUrl
+                }).ToArray()
             };
 
             await _repository.AddAsync(result);
@@ -38,7 +44,6 @@ namespace WebCrawl.Logic.Services
 
         public CrawlingResult GetResultById(int id)
         {
-
             return _repository.Include(x => x.Pages).FirstOrDefault(x => x.Id == id);
         }
     }

@@ -8,6 +8,10 @@ namespace WebCrawl.Entity.Models
 
         public string Url { get; set; }
 
+        public bool IsSitemapLink { get; set; }
+
+        public bool IsCrawlingLink { get; set; }
+
         public TimeSpan ResponseTime { get; set; }
     }
 }
