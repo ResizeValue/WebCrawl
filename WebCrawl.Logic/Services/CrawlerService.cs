@@ -24,7 +24,7 @@ namespace WebCrawl.Logic.Services
             return _service.GetResultById(id);
         }
 
-        public async virtual Task<IEnumerable<CrawlingResult>> GetResultsPage(int curPage, int pageSize)
+        public async virtual Task<(int TotalCount, IList<CrawlingResult> Results)> GetResultsPage(int curPage, int pageSize)
         {
             return await _service.GetResultsPageAsync(curPage, pageSize);
         }

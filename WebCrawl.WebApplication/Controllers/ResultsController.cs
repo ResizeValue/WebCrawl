@@ -35,7 +35,7 @@ namespace WebCrawl.WebApplication.Controllers
 
             var resultsForPage = await _service.GetResultsPage(curPage, pageSize);
 
-            var resultsModel = _viewMapper.GetResultsViewModel(resultsForPage, page);
+            var resultsModel = _viewMapper.GetResultsViewModel(resultsForPage.Results, page, resultsForPage.TotalCount);
 
             return View(resultsModel);
         }
@@ -54,7 +54,9 @@ namespace WebCrawl.WebApplication.Controllers
 
             var page = _viewMapper.GetPageTemplate(basePageSize, model.CurrentPage, maxPagesCount);
 
-            var resultModel = _viewMapper.GetResultsViewModel(await _service.GetResultsPage(model.CurrentPage, maxPagesCount), page, model.InputUrl);
+            var resultsForPage = await _service.GetResultsPage(model.CurrentPage, basePageSize);
+
+            var resultModel = _viewMapper.GetResultsViewModel(resultsForPage.Results, page, resultsForPage.TotalCount, model.InputUrl);
 
             return View("Index", resultModel);
         }

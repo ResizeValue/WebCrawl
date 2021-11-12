@@ -14,7 +14,7 @@ namespace WebCrawl.Logic.Crawler
         {
             var extentions = new List<string> {
                 ".doc", ".docx", ".pdf", ".xls",
-                ".xlsx",".txt",".png",".jgp",
+                ".xlsx",".txt",".png",".jpg",
                 ".jpeg",".webp",".gif",".xml",
                 ".aif",".mp3",".ogg",".wav",
                 ".pkg",".rar",".zip",".ico"

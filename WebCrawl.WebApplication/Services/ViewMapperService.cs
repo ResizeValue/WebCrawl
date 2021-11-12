@@ -9,14 +9,14 @@ namespace WebCrawl.WebApplication.Services
 {
     public class ViewMapperService
     {
-        public ResultsViewModel GetResultsViewModel(IEnumerable<CrawlingResult> results, PageTemplate page, string inputUrl = "")
+        public ResultsViewModel GetResultsViewModel(IEnumerable<CrawlingResult> results, PageTemplate page, int totalCount, string inputUrl = "")
         {
             return new ResultsViewModel
             {
                 CurrentPage = page.CurrentPage,
                 MaxPages = page.MaxPages,
                 InputUrl = inputUrl,
-                TotalPages = (int)Math.Ceiling((double)results.Count() / page.PageSize),
+                TotalPages = (int)Math.Ceiling((double)totalCount / page.PageSize),
                 Results = results.Select(x => new CrawlingResultInfo
                 {
                     Id = x.Id,
