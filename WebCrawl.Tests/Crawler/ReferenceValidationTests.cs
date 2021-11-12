@@ -3,7 +3,7 @@ using WebCrawl.Logic.Crawler;
 
 namespace WebCrawl.Logic.Tests.Crawler
 {
-    class ReferenceValidationTests
+    public class ReferenceValidationTests
     {
         private readonly ReferenceValidation validationTests;
 

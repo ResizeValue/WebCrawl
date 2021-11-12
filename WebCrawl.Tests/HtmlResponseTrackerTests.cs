@@ -4,7 +4,7 @@ using System;
 
 namespace WebCrawl.Logic.Tests
 {
-    class HtmlResponseTrackerTests
+    public class HtmlResponseTrackerTests
     {
         private readonly Mock<WebContentLoader> _mockWebLoader;
         private readonly HtmlResponseTracker _mockHtmlResponseTracker;

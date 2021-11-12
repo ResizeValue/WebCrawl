@@ -1,4 +1,4 @@
-﻿@model WebCrawl.WebApplication.viewModels.ResultsViewModel
+﻿@model WebCrawl.WebApplication.ViewModels.ResultsViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -45,7 +45,7 @@
                             <td>@i</td>
                             <td>@result.BasePage</td>
                             <td>@result.Date.ToShortDateString()</td>
-                            <td>@result.Pages.Count() pages</td>
+                            <td>@result.PagesCount pages</td>
                         </tr>
                     }
                 }

@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using WebCrawl.Logic.Services;
-using WebCrawl.WebApplication.viewModels;
+using WebCrawl.WebApplication.Services;
 
 namespace WebCrawl.WebApplication.Controllers
 {
     public class DetailsController : Controller
     {
         private readonly CrawlerService _service;
+        private readonly ViewMapperService _viewMapper;
 
-        public DetailsController(CrawlerService service)
+        public DetailsController(CrawlerService service, ViewMapperService viewMapper)
         {
             _service = service;
+            _viewMapper = viewMapper;
         }
 
         [HttpGet]
@@ -19,12 +20,7 @@ namespace WebCrawl.WebApplication.Controllers
         {
             var result = _service.GetResultById(id);
 
-            var detailModel = new DetailsViewModel
-            {
-                Id = id,
-                BaseUrl = result.BasePage,
-                Pages = result.Pages.ToArray()
-            };
+            var detailModel = _viewMapper.GetDetailsViewModel(result);
 
             return View(detailModel);
         }

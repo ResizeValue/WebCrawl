@@ -6,10 +6,7 @@ namespace WebCrawl.Logic.Services
     {
         public string ErrorMessage { get; private set; }
 
-        public ValidationInputUrlService(WebContentLoader loader) : base(loader)
-        {
-
-        }
+        public ValidationInputUrlService(WebContentLoader loader) : base(loader) {}
 
         public override bool IsValidInputUrl(string url)
         {
@@ -22,7 +19,7 @@ namespace WebCrawl.Logic.Services
 
             if (!base.IsValidInputUrl(url))
             {
-                ErrorMessage = "Can't find a website";
+                ErrorMessage = "The site was not found";
 
                 return false;
             }

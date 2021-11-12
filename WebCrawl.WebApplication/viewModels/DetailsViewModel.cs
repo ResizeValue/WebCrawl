@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
-using WebCrawl.Entity.Models;
+using WebCrawl.WebApplication.Models;
 
-namespace WebCrawl.WebApplication.viewModels
+namespace WebCrawl.WebApplication.ViewModels
 {
     public class DetailsViewModel
     {
-        public int Id { get; set; }
         public string BaseUrl { get; set; }
-        public int CurrentPage { get; set; }
-        public int TotalPages { get; set; }
-        public int MaxPages { get; set; }
-        public ICollection<ParsedHtmlDocument> Pages { get; set; }
+        public IEnumerable<ParsedPageInfo> Pages { get; set; }
     }
 }

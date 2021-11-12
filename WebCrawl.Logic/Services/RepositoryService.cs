@@ -37,12 +37,20 @@ namespace WebCrawl.Logic.Services
             await _repository.SaveChangesAsync();
         }
 
-        public IEnumerable<CrawlingResult> GetAllResults()
+        public async virtual Task<IEnumerable<CrawlingResult>> GetResultsPageAsync(int curPage, int pageSize)
+        {
+            
+            var result = await _repository.GetPageAsync(_repository.Include(x => x.Pages), curPage, pageSize);
+
+            return result.Result;
+        }
+
+        public virtual IEnumerable<CrawlingResult> GetAllResults()
         {
             return _repository.Include(x => x.Pages);
         }
 
-        public CrawlingResult GetResultById(int id)
+        public virtual CrawlingResult GetResultById(int id)
         {
             return _repository.Include(x => x.Pages).FirstOrDefault(x => x.Id == id);
         }

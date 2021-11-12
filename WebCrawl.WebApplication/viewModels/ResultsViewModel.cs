@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using WebCrawl.Entity.Models;
+using WebCrawl.WebApplication.Models;
 
-namespace WebCrawl.WebApplication.viewModels
+namespace WebCrawl.WebApplication.ViewModels
 {
     public class ResultsViewModel
     {
-        public ICollection<CrawlingResult> Results { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
         public int MaxPages { get; set; }
         public string InputUrl { get; set; }
+        public IEnumerable<CrawlingResultInfo> Results { get; set; }
     }
 }

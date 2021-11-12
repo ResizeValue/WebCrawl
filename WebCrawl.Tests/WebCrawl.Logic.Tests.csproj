@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebCrawl.Logic\WebCrawl.Logic.csproj" />
-    <ProjectReference Include="..\WebCrawler\WebCrawl.Logic.csproj" />
   </ItemGroup>
 
 </Project>

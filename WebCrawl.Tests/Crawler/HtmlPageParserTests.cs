@@ -6,7 +6,7 @@ using WebCrawl.Logic.Crawler;
 
 namespace WebCrawl.Logic.Tests.Crawler
 {
-    class HtmlPageParserTests
+    public class HtmlPageParserTests
     {
         private readonly Mock<WebContentLoader> _mockWebLoader;
         private readonly HtmlPageParser _htmlParser;

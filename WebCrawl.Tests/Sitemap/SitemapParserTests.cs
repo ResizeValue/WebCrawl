@@ -5,7 +5,7 @@ using WebCrawl.Logic.Sitemap;
 
 namespace WebCrawl.Logic.Tests.Sitemap
 {
-    class SitemapParserTests
+    public class SitemapParserTests
     {
         private readonly Mock<XmlParser> _mockXmlParser;
         private readonly Mock<WebContentLoader> _mockWebLoader;

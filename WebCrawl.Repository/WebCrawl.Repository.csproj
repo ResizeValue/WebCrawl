@@ -15,6 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.13" />
     <PackageReference Include="UkadGroup.EfRepository" Version="1.0.1" />
     <PackageReference Include="UkadGroup.IRepository" Version="1.0.3" />
   </ItemGroup>

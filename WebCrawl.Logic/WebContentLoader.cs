@@ -20,7 +20,7 @@ namespace WebCrawl.Logic
             return downloadedString;
         }
 
-        public bool TryDownloadContent(string url)
+        public virtual bool TryDownloadContent(string url)
         {
             try
             {

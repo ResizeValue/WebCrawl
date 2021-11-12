@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -7,13 +6,12 @@ using System.Threading.Tasks;
 using WebCrawl.Logic.Services;
 using WebCrawl.WebApplication.Models;
 using WebCrawl.WebApplication.Services;
-using WebCrawl.WebApplication.viewModels;
+using WebCrawl.WebApplication.ViewModels;
 
 namespace WebCrawl.WebApplication.Controllers
 {
     public class ResultsController : Controller
     {
-        private readonly ILogger<ResultsController> _logger;
         private readonly CrawlerService _service;
         private readonly ValidationInputUrlService _validation;
         private readonly ViewMapperService _viewMapper;
@@ -21,29 +19,23 @@ namespace WebCrawl.WebApplication.Controllers
         private const int maxPagesCount = 7;
         private const int basePageSize = 5;
 
-        public ResultsController(ILogger<ResultsController> logger,
-            CrawlerService service,
+        public ResultsController(CrawlerService service,
             ViewMapperService viewMapper,
             ValidationInputUrlService validation)
         {
-            _logger = logger;
             _service = service;
             _validation = validation;
             _viewMapper = viewMapper;
         }
 
         [HttpGet]
-        public IActionResult Index(int curPage = 1, int pageSize = basePageSize, int maxPages = maxPagesCount)
+        public async Task<IActionResult> Index(int curPage = 1, int pageSize = basePageSize, int maxPages = maxPagesCount)
         {
-            var results = _service.GetAllResult();
+            var page = _viewMapper.GetPageTemplate(pageSize, curPage, maxPages);
 
-            var resultsModel = new ResultsViewModel
-            {
-                Results = results.Skip((curPage - 1) * pageSize).Take(pageSize).ToArray(),
-                CurrentPage = curPage,
-                MaxPages = maxPages,
-                TotalPages = (int)Math.Ceiling((double)results.Count() / pageSize)
-            };
+            var resultsForPage = await _service.GetResultsPage(curPage, pageSize);
+
+            var resultsModel = _viewMapper.GetResultsViewModel(resultsForPage, page);
 
             return View(resultsModel);
         }
@@ -60,14 +52,9 @@ namespace WebCrawl.WebApplication.Controllers
                 ModelState.AddModelError("IncorrectUrl", _validation.ErrorMessage);
             }
 
-            var page = new PageTemplate
-            {
-                CurrentPage = model.CurrentPage,
-                MaxPages = maxPagesCount,
-                PageSize = basePageSize
-            };
+            var page = _viewMapper.GetPageTemplate(basePageSize, model.CurrentPage, maxPagesCount);
 
-            var resultModel = _viewMapper.GetResultsViewModel(_service.GetAllResult(), page, model.InputUrl);
+            var resultModel = _viewMapper.GetResultsViewModel(await _service.GetResultsPage(model.CurrentPage, maxPagesCount), page, model.InputUrl);
 
             return View("Index", resultModel);
         }

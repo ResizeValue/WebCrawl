@@ -78,18 +78,56 @@ namespace WebCrawl.Logic.Tests.Services
         {
             var fakeCollection = new List<CrawlingResult>
             {
-                new CrawlingResult {Id = 1, BasePage = "page1"},
-                new CrawlingResult {Id = 2, BasePage = "page2"},
-                new CrawlingResult {Id = 3, BasePage = "page3"},
+                new CrawlingResult
+                {
+                    Id = 1, 
+                    BasePage = "page1"
+                },
+                new CrawlingResult
+                {
+                    Id = 2,
+                    BasePage = "page2"
+                }
             }.AsQueryable();
+
+            var id = 2;
+
+            var expectedResult = new CrawlingResult { Id = 2, BasePage = "page2" };
 
             _mockIRepositoryService.Setup(x => x.Include(x => x.Pages))
                 .Returns(fakeCollection);
 
-            var result = _crawlerService.GetAllResult();
+            var result = _crawlerService.GetResultById(id);
 
-            Assert.AreEqual(fakeCollection.Select(x => x.Id), result.Select(x => x.Id));
-            Assert.AreEqual(fakeCollection.Select(x => x.BasePage), result.Select(x => x.BasePage));
+            Assert.AreEqual(expectedResult.Id, result.Id);
+            Assert.AreEqual(expectedResult.BasePage, result.BasePage);
+        }
+
+        [Test, Timeout(1000)]
+        public void GetResultById_InputNotExistingId_ResultShouldBeNull()
+        {
+            var fakeCollection = new List<CrawlingResult>
+            {
+                new CrawlingResult
+                {
+                    Id = 1,
+                    BasePage = "page1"
+                },
+                new CrawlingResult
+                {
+                    Id = 2,
+                    BasePage = "page2"
+                }
+            }.AsQueryable();
+
+            var id = 3;
+
+            _mockIRepositoryService.Setup(x => x.Include(x => x.Pages))
+                .Returns(fakeCollection);
+
+            var result = _crawlerService.GetResultById(id);
+
+            Assert.Null(result);
         }
     }
 }
