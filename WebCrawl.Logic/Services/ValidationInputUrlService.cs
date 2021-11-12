@@ -26,6 +26,5 @@ namespace WebCrawl.Logic.Services
 
             return true;
         }
-
     }
 }

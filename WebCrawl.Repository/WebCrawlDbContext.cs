@@ -25,6 +25,5 @@ namespace WebCrawl.Repository
         {
             builder.ApplyConfigurationsFromAssembly(typeof(CrawlingResultConfiguration).Assembly);
         }
-
     }
 }

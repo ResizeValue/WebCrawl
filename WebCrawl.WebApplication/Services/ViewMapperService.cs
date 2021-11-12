@@ -31,7 +31,7 @@ namespace WebCrawl.WebApplication.Services
         {
             return new DetailsViewModel
             {
-                Pages = result.Pages.Select(x => new ParsedPageInfo 
+                Pages = result.Pages.Select(x => new ParsedPageInfo
                 {
                     Id = x.Id,
                     Url = x.Url,

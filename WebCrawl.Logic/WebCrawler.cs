@@ -65,7 +65,5 @@ namespace WebCrawl.Logic
 
             return responseTimeCollection;
         }
-
-
     }
 }

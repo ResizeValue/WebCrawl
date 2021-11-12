@@ -80,7 +80,7 @@ namespace WebCrawl.Logic.Tests.Services
             {
                 new CrawlingResult
                 {
-                    Id = 1, 
+                    Id = 1,
                     BasePage = "page1"
                 },
                 new CrawlingResult
