@@ -21,6 +21,7 @@ namespace WebCrawl.WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ViewMapperService>();
+            services.AddScoped<ViewModelsService>();
 
             services.AddEfRepository(Configuration);
             services.AddScoped();

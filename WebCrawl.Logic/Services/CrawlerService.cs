@@ -24,12 +24,12 @@ namespace WebCrawl.Logic.Services
             return _service.GetResultById(id);
         }
 
-        public async virtual Task<(int TotalCount, IList<CrawlingResult> Results)> GetResultsPage(int curPage, int pageSize)
+        public virtual async Task<(int TotalCount, IList<CrawlingResult> Results)> GetResultsPage(int curPage, int pageSize)
         {
             return await _service.GetResultsPageAsync(curPage, pageSize);
         }
 
-        public async virtual Task ParseUrlAndSaveResultAsync(string url)
+        public virtual async Task ParseUrlAndSaveResultAsync(string url)
         {
             var response = _crawler.ParseUrl(url);
 

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using WebCrawl.Logic.Services;
 using WebCrawl.WebApplication.Models;
@@ -12,30 +10,26 @@ namespace WebCrawl.WebApplication.Controllers
 {
     public class ResultsController : Controller
     {
-        private readonly CrawlerService _service;
+        private readonly ViewModelsService _modelService;
+        private readonly CrawlerService _crawlerService;
         private readonly ValidationInputUrlService _validation;
-        private readonly ViewMapperService _viewMapper;
 
-        private const int maxPagesCount = 7;
-        private const int basePageSize = 5;
+        private const int MaxPagesCount = 7;
+        private const int BasePageSize = 5;
 
-        public ResultsController(CrawlerService service,
-            ViewMapperService viewMapper,
+        public ResultsController(ViewModelsService modelService,
+            CrawlerService crawlerService,
             ValidationInputUrlService validation)
         {
-            _service = service;
+            _modelService = modelService;
+            _crawlerService = crawlerService;
             _validation = validation;
-            _viewMapper = viewMapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int curPage = 1, int pageSize = basePageSize, int maxPages = maxPagesCount)
+        public async Task<IActionResult> Index(int curPage = 1, int pageSize = BasePageSize, int maxPages = MaxPagesCount)
         {
-            var page = _viewMapper.GetPageTemplate(pageSize, curPage, maxPages);
-
-            var resultsForPage = await _service.GetResultsPage(curPage, pageSize);
-
-            var resultsModel = _viewMapper.GetResultsViewModel(resultsForPage.Results, page, resultsForPage.TotalCount);
+            var resultsModel = await _modelService.GetResultsModel(curPage, pageSize, maxPages);
 
             return View(resultsModel);
         }
@@ -45,20 +39,16 @@ namespace WebCrawl.WebApplication.Controllers
         {
             if (_validation.IsValidInputUrl(model.InputUrl))
             {
-                await _service.ParseUrlAndSaveResultAsync(model.InputUrl);
+                await _crawlerService.ParseUrlAndSaveResultAsync(model.InputUrl);
             }
             else
             {
                 ModelState.AddModelError("IncorrectUrl", _validation.ErrorMessage);
             }
 
-            var page = _viewMapper.GetPageTemplate(basePageSize, model.CurrentPage, maxPagesCount);
+            var resultsModel = await _modelService.GetResultsModel(model.CurrentPage, BasePageSize, MaxPagesCount);
 
-            var resultsForPage = await _service.GetResultsPage(model.CurrentPage, basePageSize);
-
-            var resultModel = _viewMapper.GetResultsViewModel(resultsForPage.Results, page, resultsForPage.TotalCount, model.InputUrl);
-
-            return View("Index", resultModel);
+            return View("Index", resultsModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

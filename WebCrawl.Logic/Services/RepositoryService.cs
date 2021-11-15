@@ -37,9 +37,9 @@ namespace WebCrawl.Logic.Services
             await _repository.SaveChangesAsync();
         }
 
-        public async virtual Task<(int,IList<CrawlingResult>)> GetResultsPageAsync(int curPage, int pageSize)
+        public async virtual Task<(int, IList<CrawlingResult>)> GetResultsPageAsync(int curPage, int pageSize)
         {
-            
+
             var result = await _repository.GetPageAsync(_repository.Include(x => x.Pages), curPage, pageSize);
 
             return result;
