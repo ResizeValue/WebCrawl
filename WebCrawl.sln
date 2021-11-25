@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.Logic", "WebCrawl.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCrawl.WebApplication", "WebCrawl.WebApplication\WebCrawl.WebApplication.csproj", "{1CAC901E-332D-4160-9E91-3593A43E764A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCrawl.WebApi", "WebCrawl.WebApi\WebCrawl.WebApi.csproj", "{77EBD0AB-5C68-4888-825B-3130A3D52498}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1CAC901E-332D-4160-9E91-3593A43E764A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CAC901E-332D-4160-9E91-3593A43E764A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CAC901E-332D-4160-9E91-3593A43E764A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77EBD0AB-5C68-4888-825B-3130A3D52498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77EBD0AB-5C68-4888-825B-3130A3D52498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77EBD0AB-5C68-4888-825B-3130A3D52498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77EBD0AB-5C68-4888-825B-3130A3D52498}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
