@@ -11,19 +11,15 @@
 <script>
 import Header from "./Components/Header.vue";
 import Footer from "./Components/Footer.vue";
-import Table from "./Pages/Results.vue";
 
 export default {
   name: "app",
   data() {
-    return {
-      msg: "Welcome to Your Vue.js App"
-    };
+    return {};
   },
   components: {
     vueHeader: Header,
-    vueFooter: Footer,
-    vueTable: Table
+    vueFooter: Footer
   }
 };
 </script>

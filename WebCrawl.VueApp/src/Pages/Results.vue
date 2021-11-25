@@ -24,6 +24,7 @@
         :results="results"
         :totalPages="totalPages"
         :pageSize="pageSize"
+        :isLoading="isLoading"
         @getResult="getResults"
         @getDetails="getDetails"
       ></results-table>
@@ -43,6 +44,7 @@ export default {
       isLoading: null,
       isParsing: false,
       totalPages: 0,
+      currentpage: 1,
       pageSize: 10,
       isValid: null,
       errorMessage: ""
@@ -63,7 +65,8 @@ export default {
       ApiService.methods
         .parseUrl(this.inputUrl)
         .then(response => {
-          this.getResults(this.currentPage);
+          this.makeToast("Success", "Site parsing");
+          this.getResults();
           this.isValid = true;
         })
         .catch(error => {
@@ -81,23 +84,28 @@ export default {
 
     getResults: function(curPage) {
       this.isLoading = true;
+      console.log(curPage);
+      if (curPage != null) {
+        this.currentpage = curPage;
+      }
+
       ApiService.methods
-        .getResults(curPage, this.pageSize)
+        .getResults(this.currentpage, this.pageSize)
         .then(result => {
           this.results = result.data.results;
           this.totalPages = result.data.totalPages;
         })
         .catch(error => {
-          this.makeToast("Server does not response");
+          this.makeToast(error);
         })
         .then(() => {
           this.isLoading = false;
         });
     },
 
-    makeToast(title = "Error", append = false) {
-      this.$bvToast.toast(`${title}`, {
-        title: "Error",
+    makeToast(message, title = "Error", append = false) {
+      this.$bvToast.toast(`${message}`, {
+        title: title,
         autoHideDelay: 5000,
         appendToast: append
       });
@@ -105,7 +113,7 @@ export default {
   },
 
   created() {
-    this.getResults(1);
+    this.getResults(this.currentpage);
   },
 
   watch: {

@@ -3,9 +3,16 @@
     <b-table
       :fields="fields"
       @row-clicked="getDetails($event)"
+      :busy="isLoading"
       :items="results"
       :tbody-tr-class="rowClass"
     >
+      <template #table-busy>
+        <div class="text-center text-dark my-2 m-5">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
     </b-table>
     <div class="mt-3 d-flex justify-content-center">
       <b-pagination
@@ -26,28 +33,28 @@
 import { DateTime } from "luxon";
 
 export default {
-  props: ["results", "totalPages", "pageSize"],
+  props: ["results", "totalPages", "pageSize", "isLoading"],
   data() {
     return {
       currentPage: 1,
       fields: [
         {
-          key: "basePage"
+          key: "basePage",
         },
         {
           key: "date",
-          formatter: this.formatDate
+          formatter: this.formatDate,
         },
         {
-          key: "pagesCount"
-        }
-      ]
+          key: "pagesCount",
+        },
+      ],
     };
   },
   computed: {
     totalRows() {
       return this.pageSize * this.totalPages;
-    }
+    },
   },
   methods: {
     rowClass() {
@@ -55,7 +62,6 @@ export default {
     },
 
     getResults(curPage) {
-      console.log(curPage);
       this.$emit("getResult", curPage);
     },
 
@@ -68,7 +74,7 @@ export default {
         DateTime.DATETIME_SHORT
       );
       return formattedDate;
-    }
-  }
+    },
+  },
 };
 </script>

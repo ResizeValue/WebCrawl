@@ -8,7 +8,7 @@ namespace WebCrawl.Logic.Services
 
         public ValidationInputUrlService(WebContentLoader loader) : base(loader) {}
 
-        public override bool IsValidInputUrl(string url)
+        public override bool IsValidInputUrl(ref string url)
         {
             if (!base.IsCorrectUrl(url))
             {
@@ -17,7 +17,7 @@ namespace WebCrawl.Logic.Services
                 return false;
             }
 
-            if (!base.IsValidInputUrl(url))
+            if (!base.IsValidInputUrl(ref url))
             {
                 ErrorMessage = "The site was not found";
 

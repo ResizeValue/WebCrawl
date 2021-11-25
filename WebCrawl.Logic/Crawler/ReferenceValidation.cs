@@ -46,11 +46,16 @@ namespace WebCrawl.Logic.Crawler
             return true;
         }
 
-        public virtual bool IsValidInputUrl(string url)
+        public virtual bool IsValidInputUrl(ref string url)
         {
             if (!url.StartsWith("http"))
             {
                 url = "http://" + url;
+            }
+
+            if (!url.EndsWith("/"))
+            {
+                url += '/';
             }
 
             if (_contentLoader.TryDownloadContent(url))

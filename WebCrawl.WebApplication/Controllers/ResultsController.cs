@@ -37,7 +37,9 @@ namespace WebCrawl.WebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> ParseSiteByUrl(ResultsViewModel model)
         {
-            if (_validation.IsValidInputUrl(model.InputUrl))
+            var inputUrl = model.InputUrl;
+
+            if (_validation.IsValidInputUrl(ref inputUrl))
             {
                 await _crawlerService.ParseUrlAndSaveResultAsync(model.InputUrl);
             }

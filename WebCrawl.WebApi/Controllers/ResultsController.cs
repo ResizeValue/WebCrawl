@@ -33,7 +33,7 @@ namespace WebCrawl.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> ParseSiteByUrl(string inputUrl)
         {
-            if (_validation.IsValidInputUrl(inputUrl))
+            if (_validation.IsValidInputUrl(ref inputUrl))
             {
                 await _crawlerService.ParseUrlAndSaveResultAsync(inputUrl);
 

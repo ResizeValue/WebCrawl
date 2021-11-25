@@ -1,31 +1,28 @@
 <template>
   <div>
     <div class="p-3">
-      <h2 class="text-center">
-        Urls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:
-      </h2>
-      <details-table
-        :results="crawlerLinks"
-        :pageSize="pageSize"
-      ></details-table>
+      <b-button v-b-toggle="'crawl'" class="text-center h2 toggle-btn"
+        >Urls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml</b-button
+      >
+      <b-collapse id="crawl">
+        <details-table :results="crawlerLinks" :pageSize="pageSize"></details-table>
+      </b-collapse>
     </div>
     <hr />
     <div class="p-3">
-      <h2 class="text-center">
-        Urls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:
-      </h2>
-      <details-table
-        :results="sitemapLinks"
-        :pageSize="pageSize"
-      ></details-table>
+      <b-button v-b-toggle="'sitemap'" class="text-center h2 toggle-btn"
+        >Urls FOUNDED IN SITEMAP.XML but not founded after crawling a web site</b-button
+      >
+      <b-collapse id="sitemap">
+        <details-table :results="sitemapLinks" :pageSize="pageSize"></details-table>
+      </b-collapse>
     </div>
     <hr />
     <div class="p-3">
-      <h2 class="text-center">Timing:</h2>
-      <details-table
-        :results="parsedUrlList"
-        :pageSize="pageSize"
-      ></details-table>
+      <b-button v-b-toggle="'time'" class="text-center h2 toggle-btn">Timing</b-button>
+      <b-collapse id="time">
+        <details-table :results="parsedUrlList" :pageSize="pageSize"></details-table>
+      </b-collapse>
     </div>
     <div class="mt-5"></div>
   </div>
@@ -41,26 +38,33 @@ export default {
       id: this.$route.params["id"],
       parsedUrlList: [],
       isLoading: true,
-      pageSize: 8
+      pageSize: 8,
     };
   },
   methods: {
     goBackToCars() {
       this.$router.push("/");
-    }
+    },
+    sortByResponse(a, b) {
+      if (a.responseTime.totalMilliseconds < b.responseTime.totalMilliseconds) {
+        return -1;
+      } else if (a.responseTime.totalMilliseconds > b.responseTime.totalMilliseconds) {
+        return 1;
+      }
+      return 0;
+    },
   },
   watch: {
     $route(toR, fromR) {
       this.id = toR.params["id"];
-    }
+    },
   },
   components: {
-    detailsTable: Table
+    detailsTable: Table,
   },
   computed: {
     sitemapLinks() {
-      var result = this.parsedUrlList.filter(element => {
-        console.log(element);
+      var result = this.parsedUrlList.filter((element) => {
         if (element.isCrawlingLink == false) {
           return true;
         }
@@ -70,23 +74,27 @@ export default {
     },
 
     crawlerLinks() {
-      var result = this.parsedUrlList.filter(element => {
+      var result = this.parsedUrlList.filter((element) => {
         if (element.isSitemapLink == false) return true;
       });
 
       return result;
-    }
+    },
   },
   created() {
-    ApiService.methods.getDetails(this.id).then(response => {
-      this.parsedUrlList = response.data.pages;
+    ApiService.methods.getDetails(this.id).then((response) => {
+      this.parsedUrlList = response.data.pages.sort(this.sortByResponse);
     });
-  }
+  },
 };
 </script>
 
 <style scoped>
 .not-found {
   padding-top: 30px !important;
+}
+
+.toggle-btn {
+  width: 100%;
 }
 </style>

@@ -18,6 +18,7 @@
       </b-table>
       <div class="mt-3 d-flex justify-content-center">
         <b-pagination
+          v-if="results.length > pageSize"
           aria-controls="results"
           @change="getPage($event)"
           v-model="currentPage"
