@@ -25,7 +25,7 @@ namespace WebCrawl.Logic.Tests.Services
             string fakeUrl = "https://example.com/#1";
             string errorMessage = "Incorrect string format";
 
-            var actual = _validationInputUrlService.IsValidInputUrl(fakeUrl);
+            var actual = _validationInputUrlService.IsValidInputUrl(ref fakeUrl);
 
             Assert.IsFalse(actual);
             Assert.AreEqual(errorMessage, _validationInputUrlService.ErrorMessage);
@@ -40,7 +40,7 @@ namespace WebCrawl.Logic.Tests.Services
             _mockContentLoader.Setup(x => x.TryDownloadContent(It.IsAny<string>()))
                 .Returns(false);
 
-            var actual = _validationInputUrlService.IsValidInputUrl(fakeUrl);
+            var actual = _validationInputUrlService.IsValidInputUrl(ref fakeUrl);
 
             Assert.IsFalse(actual);
             Assert.AreEqual(errorMessage, _validationInputUrlService.ErrorMessage);
@@ -54,7 +54,7 @@ namespace WebCrawl.Logic.Tests.Services
             _mockContentLoader.Setup(x => x.TryDownloadContent(It.IsAny<string>()))
                 .Returns(true);
 
-            var actual = _validationInputUrlService.IsValidInputUrl(fakeUrl);
+            var actual = _validationInputUrlService.IsValidInputUrl(ref fakeUrl);
 
             Assert.IsTrue(actual);
             Assert.Null(_validationInputUrlService.ErrorMessage);
