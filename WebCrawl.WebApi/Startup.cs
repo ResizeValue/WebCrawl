@@ -6,7 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebCrawl.Logic.Services;
 using WebCrawl.Repository.Configuration;
-using WebCrawl.WebApplication.Services;
+using WebCrawl.WebApi.Middleware;
+using WebCrawl.WebApi.Services;
 
 namespace WebCrawl.WebApi
 {
@@ -44,8 +45,9 @@ namespace WebCrawl.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebCrawl.WebApi v1"));
             }
-
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseRouting();
 

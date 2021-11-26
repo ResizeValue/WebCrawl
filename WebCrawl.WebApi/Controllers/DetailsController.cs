@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebCrawl.Logic.Services;
-using WebCrawl.WebApplication.Services;
+using WebCrawl.WebApi.Services;
 
 namespace WebCrawl.WebApi.Controllers
 {

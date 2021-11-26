@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebCrawl.Logic.Services;
-using WebCrawl.WebApplication.Services;
+using WebCrawl.WebApi.Services;
 
 namespace WebCrawl.WebApi.Controllers
 {
@@ -26,6 +26,11 @@ namespace WebCrawl.WebApi.Controllers
         public async Task<IActionResult> Results(int curPage, int pageSize, int maxPages)
         {
             var resultsModel = await _modelService.GetResultsModel(curPage, pageSize, maxPages);
+
+            if(curPage > resultsModel.TotalPages)
+            {
+                return BadRequest();
+            }
 
             return Ok(resultsModel);
         }
