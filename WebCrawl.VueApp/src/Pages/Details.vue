@@ -24,7 +24,10 @@
         <details-table :results="parsedUrlList" :pageSize="pageSize"></details-table>
       </b-collapse>
     </div>
-    <div class="mt-5"></div>
+    <div class="mt-5">
+      <span>{{ parsedUrlList.length - sitemapLinks.length }}</span>
+      <span>{{ parsedUrlList.length - crawlerLinks.length }}</span>
+    </div>
   </div>
 </template>
 

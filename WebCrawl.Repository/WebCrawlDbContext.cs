@@ -12,7 +12,7 @@ namespace WebCrawl.Repository
 
         public WebCrawlDbContext()
         {
-
+            Database.Migrate();
         }
 
         public WebCrawlDbContext(DbContextOptions<WebCrawlDbContext> options)
