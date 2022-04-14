@@ -4,7 +4,7 @@ using WebCrawl.Logic.Sitemap;
 
 namespace WebCrawl.Logic.Tests.Sitemap
 {
-    class XmlParserTests
+    public class XmlParserTests
     {
         private readonly XmlParser xmlParser;
 

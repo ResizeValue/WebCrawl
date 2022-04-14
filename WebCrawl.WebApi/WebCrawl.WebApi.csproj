@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>2555b577-91fb-4aba-b145-34cf61ce0e3f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebCrawl.Logic\WebCrawl.Logic.csproj" />
+    <ProjectReference Include="..\WebCrawl.Repository\WebCrawl.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

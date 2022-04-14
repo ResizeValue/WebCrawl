@@ -6,19 +6,16 @@ using WebCrawl.Logic.Crawler;
 
 namespace WebCrawl.Logic.Tests.Crawler
 {
-    class HtmlPageParserTests
+    public class HtmlPageParserTests
     {
-        private readonly ReferenceValidation _mockValidation;
         private readonly Mock<WebContentLoader> _mockWebLoader;
-
         private readonly HtmlPageParser _htmlParser;
 
         public HtmlPageParserTests()
         {
-            _mockValidation = new ReferenceValidation();
             _mockWebLoader = new Mock<WebContentLoader>();
 
-            _htmlParser = new HtmlPageParser(_mockWebLoader.Object, _mockValidation);
+            _htmlParser = new HtmlPageParser(_mockWebLoader.Object, new ReferenceValidation(new WebContentLoader()), new UrlConverter());
         }
 
         [Test, Timeout(1000)]

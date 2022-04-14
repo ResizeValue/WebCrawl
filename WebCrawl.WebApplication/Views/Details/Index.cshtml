@@ -1,0 +1,103 @@
+﻿@model WebCrawl.WebApplication.ViewModels.DetailsViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+
+    @Html.ActionLink("Back", "Index", "Results", null, new { @class = "btn btn-primary" })
+
+    <h2 class="text-center">Report for @Model.BaseUrl</h2>
+
+    <hr />
+
+    <div class="pt-5 pb-5">
+        <h4 class="text-center p-1">Urls FOUNDED BY CRAWLING THE WEBSITE but not in sitemap.xml:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    @foreach (var result in Model.Pages.Where(x => !x.IsSitemapLink && x.IsCrawlingLink))
+                    {
+                        i++;
+                        <tr class="table-result-link">
+                            <td>@i</td>
+                            <td>@result.Url</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    <div class="pt-5 pb-5">
+        <h4 class="text-center p-1">Urls FOUNDED IN SITEMAP.XML but not founded after crawling a web site:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    i = 0;
+                    @foreach (var result in Model.Pages.Where(x => x.IsSitemapLink && !x.IsCrawlingLink))
+                    {
+                        i++;
+                        <tr class="table-result-link">
+                            <td>@i</td>
+                            <td>@result.Url</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    <div class="pt-5 pb-5">
+        <h4 class="text-center p-1">Timing</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Url</th>
+                    <th>Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    i = 0;
+                    @foreach (var result in Model.Pages.OrderBy(x => x.ResponseTime))
+                    {
+                        i++;
+                        <tr class="table-result-link">
+                            <td>@i</td>
+                            <td>@result.Url</td>
+                            <td>@result.ResponseTime.TotalMilliseconds.ToString("0")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    <div class="d-flex flex-column mt-2">
+        <label class="h4 p-2">Total sitemap links: @Model.Pages.Count(x => x.IsSitemapLink)</label>
+        <label class="h4 p-2">Total crawler links: @Model.Pages.Count(x => x.IsCrawlingLink)</label>
+    </div>
+
+</div>
+

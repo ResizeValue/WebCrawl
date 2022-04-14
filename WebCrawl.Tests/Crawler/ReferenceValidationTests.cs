@@ -3,12 +3,13 @@ using WebCrawl.Logic.Crawler;
 
 namespace WebCrawl.Logic.Tests.Crawler
 {
-    class ReferenceValidationTests
+    public class ReferenceValidationTests
     {
         private readonly ReferenceValidation validationTests;
+
         public ReferenceValidationTests()
         {
-            validationTests = new ReferenceValidation();
+            validationTests = new ReferenceValidation(new WebContentLoader());
         }
 
         [Test, Timeout(1000)]
@@ -29,7 +30,6 @@ namespace WebCrawl.Logic.Tests.Crawler
             Assert.IsFalse(result);
         }
         
-
         [Test, Timeout(1000)]
         [TestCase("user@gmail.com")]
         [TestCase("https://example.com/#id")]
